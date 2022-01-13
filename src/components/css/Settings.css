@@ -1,0 +1,104 @@
+.settings {
+    position: absolute;
+    margin: auto;
+    z-index: -1;
+    top: 10vmin;
+    left: 145vmin;
+    right: 0;
+    bottom: 0;
+    border: 0.5vmin solid black;
+    background-color: rgb(32, 32, 32);
+    width: 36vmin;
+    height: 85vmin;
+    box-sizing: border-box; 
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+    border-radius: 10px;
+}
+
+.settingsName {
+    color: white;
+    text-align: center;
+    font-size: 275%;
+    font-weight: bold;
+    margin: auto;
+    height: 8%;
+}
+
+.volumeComponent {
+    color: white;
+    text-align: center;
+    font-size: 210%;
+    margin: auto;
+    height: 12%;
+    width: 90%;
+}
+
+.ownVolumeSlider {
+	position: absolute;
+	left: 24px;
+    top: 10%;
+	margin: 0 auto;
+	height: 5px;
+	width: 300px;
+	background: #555;
+	border-radius: 15px;
+}
+
+.playbackVolumeSlider {
+    position: absolute;
+	left: 24px;
+    top: 20vmin;
+	margin: 0 auto;
+	height: 5px;
+	width: 300px;
+	background: #555;
+	border-radius: 15px;
+}
+
+.songCollectionComponent {
+    color: white;
+    text-align: center;
+    font-size: 210%;
+    margin: auto;
+    height: 12%;
+    width: 90%;
+}
+
+.difficultyComponent {
+    color: white;
+    text-align: center;
+    font-size: 210%;
+    margin: auto;
+    height: 12%;
+    width: 90%;
+}
+
+.songNameButton {
+    background-color:  rgb(25, 25, 25);
+    box-sizing: border-box; 
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+    color: white;
+    text-align: center;
+    font-size: 70%;
+    max-width: 100%;
+    max-height: 100%;
+    display: inline-block;
+    margin: auto auto;
+}
+
+#startGameButton {
+    background-color:  rgb(25, 25, 25);
+    box-sizing: border-box; 
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+    color: white;
+    text-align: center;
+    font-size: 210%;
+    width: 90%;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vmin;
+}

@@ -1,0 +1,53 @@
+body {
+    background-color: rgb(34, 34, 34);
+}
+
+.piano {
+    position: absolute;
+    margin: auto;
+    top: 56vmin;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 0.5vmin solid black;
+    width: 98vmin;
+    height: 33vmin;
+}
+
+.whiteNote {
+    border-right: 0.1vmin solid black;
+    box-sizing: border-box;
+    height: 100%;
+    width: 7vmin;
+    float: left;
+    margin: auto;
+}
+
+.blackNote {
+    height: 65%;
+    width: 3.5vmin;
+    transform: translateX(3.6vmin);
+    margin: auto;
+}
+
+.whiteNoteHint {
+    color: black;
+    font-size: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.blackNoteHint {
+    color: white;
+    font-size: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+
+#hintText {
+    color: white;
+    font-size: 100%;
+    text-align: center;
+}
