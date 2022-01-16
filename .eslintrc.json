@@ -21,7 +21,6 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "linebreak-style": ["error", "windows"],
         "max-len": ["error", { "code": 150 }],
         "react/destructuring-assignment": ["error", "never"],
         "react/prop-types": "off",
