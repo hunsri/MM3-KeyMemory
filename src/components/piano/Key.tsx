@@ -30,8 +30,8 @@ const Key = function key(holder: {
   inputDevice: any
 }) {
   const hasSharp = findSharp(holder.keyLetter);
-  const keyName = `${holder.keyLetter}${holder.keyNumber}`;
-  const blackNoteExtra = `${holder.keyLetter}#${holder.keyNumber}`;
+  const keyNameWhite = `${holder.keyLetter}${holder.keyNumber}`;
+  const keyNameBlack = `${holder.keyLetter}#${holder.keyNumber}`;
   const [keyboardHintIsVisible, setKeyboardHintIsVisible] = useState(false);
   const [noSharpIsPressed, setNoSharpIsPressed] = useState(false);
   const [sharpIsPressed, setSharpIsPressed] = useState(false);
@@ -79,38 +79,38 @@ const Key = function key(holder: {
   };
 
   React.useEffect(() => {
-    if (holder.inputDevice !== null) {
+    if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
       console.log('Device linked');
       holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
         if (hasSharp === true) {
-          if (e.note.identifier === holder.keyboard) {
+          if (e.note.identifier === keyNameWhite) {
             setNoSharpIsPressed(true);
           }
-          if (e.note.identifier === holder.alternative) {
+          if (e.note.identifier === keyNameBlack) {
             setSharpIsPressed(true);
           }
-        } else if (e.note.identifier === holder.keyboard) {
+        } else if (e.note.identifier === keyNameWhite) {
           setNoSharpIsPressed(true);
         }
       });
 
       holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
         if (hasSharp === true) {
-          if (e.note.identifier === holder.keyboard) {
+          if (e.note.identifier === keyNameWhite) {
             setNoSharpIsPressed(false);
           }
-          if (e.note.identifier === holder.alternative) {
+          if (e.note.identifier === keyNameBlack) {
             setSharpIsPressed(false);
           }
-        } else if (e.note.identifier === holder.keyboard) {
+        } else if (e.note.identifier === keyNameWhite) {
           setNoSharpIsPressed(false);
         }
       });
+    } else {
+      window.addEventListener('keydown', handleInput);
+      window.addEventListener('keyup', handleInputEnd);
+      window.addEventListener('keypress', handleKeyboardHint);
     }
-
-    window.addEventListener('keydown', handleInput);
-    window.addEventListener('keyup', handleInputEnd);
-    window.addEventListener('keypress', handleKeyboardHint);
 
     return () => {
       window.removeEventListener('keydown', handleInput);
@@ -123,13 +123,13 @@ const Key = function key(holder: {
     return (
       <div
         className={whiteNote}
-        data-code={keyName}
+        data-code={keyNameWhite}
         aria-hidden
         style={{ backgroundColor: noSharpIsPressed ? '#ccc' : 'white' }}
       >
         <div
           className={blackNote}
-          data-code={blackNoteExtra}
+          data-code={keyNameBlack}
           aria-hidden
           style={{ backgroundColor: sharpIsPressed ? '#777' : 'black' }}
         >
@@ -142,7 +142,7 @@ const Key = function key(holder: {
   return (
     <div
       className={whiteNote}
-      data-code={keyName}
+      data-code={keyNameWhite}
       aria-hidden
       style={{ backgroundColor: noSharpIsPressed ? '#ccc' : 'white' }}
     >
