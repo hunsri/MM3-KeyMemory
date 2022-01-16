@@ -7,12 +7,13 @@ import { Game } from './components/game/Game';
 const App = function app() {
   const songNameArray = ['Die Lilie', 'Für die Liebe'];
   const songLengthArray = [10, 253];
-  const [gameStarted, setGameStarted] = useState(false);
+  const [gameStarted, setGameStarted] = useState(true);
   const [songChoice, setSongChoice] = useState('Choose a song and press start');
   const [restTime, setRestTime] = useState('0:00'); // like 3:40 -> 3:39 -> 3:38
   const [pastTime, setPastTime] = useState(0); // like 1 -> 2 -> 3 (seconds)
   const [totalSongLength, setTotalSongLength] = useState(0);
   const [phase, setPhase] = useState(0);
+  const [midiDevice, setMidiDevice] = useState();
 
   // All const below are callbacks of children of this class (App.tsx).
   // Updates the gameStarted boolean.
@@ -22,6 +23,7 @@ const App = function app() {
 
   // Updates the songChoice string.
   const handleSongChoiceChange = useCallback((changeSongChoice: string) => {
+    setGameStarted(false);
     setSongChoice(changeSongChoice);
   }, [setSongChoice]);
 
@@ -45,10 +47,17 @@ const App = function app() {
     setPhase(changePhase);
   }, [setPhase]);
 
+  // Updates the phase number.
+  const handleMidiDeviceChange = useCallback((changeMidiDevice: any) => {
+    setMidiDevice(changeMidiDevice);
+  }, [setMidiDevice]);
+
   return (
     <div className="App">
       <body>
-        <Piano />
+        <Piano
+          onMidiDeviceChange={handleMidiDeviceChange}
+        />
         <Settings
           songNameArray={songNameArray}
           onGameStartChange={handleGameStartedChange}
@@ -64,6 +73,7 @@ const App = function app() {
         <Overview
           gameStarted={gameStarted}
           phase={phase}
+          midiDevice={midiDevice}
         />
         <Game
           songNameArray={songNameArray}

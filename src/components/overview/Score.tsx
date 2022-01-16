@@ -1,4 +1,5 @@
 import React from 'react';
+
 import '../css/Overview.css';
 
 const Score = function score() {

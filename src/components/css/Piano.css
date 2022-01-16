@@ -30,20 +30,32 @@ body {
     margin: auto;
 }
 
-.whiteNoteHint {
+
+.whiteNote>.whiteNoteWithSharpHint {
     color: black;
-    font-size: 100%;
+    font-size: 125%;
     text-align: center;
-    position: absolute;
-    bottom: 0;
+    margin: auto auto;
+    position: relative;
+    top: 15%;
+}
+
+.whiteNote>.whiteNoteWithoutSharpHint {
+    color: black;
+    font-size: 125%;
+    text-align: center;
+    margin: auto auto;
+    position: relative;
+    top: 80%;
 }
 
 .blackNoteHint {
     color: white;
-    font-size: 100%;
+    font-size: 125%;
     text-align: center;
-    position: absolute;
-    bottom: 0;
+    margin: auto auto;
+    position: relative;
+    top: 80%;
 }
 
 #hintText {

@@ -1,12 +1,17 @@
 import React from 'react';
-import '../css/Settings.css';
 import Song from './Song';
 
-const SongCollection = function songCollection(holder: { gameStarted: boolean, songNameArray: Array<string>, onSongChoiceChange: any }) {
+import '../css/Settings.css';
+
+const SongCollection = function songCollection(holder: {
+  gameStarted: boolean, songNameArray: Array<string>,
+  onSongChoiceChange: any, songChoice: string
+}) {
   let disableSongs = false;
+  const defaultTitle = 'Choose a song and press start';
 
   // Will disable song buttons if the game started.
-  if (holder.gameStarted === true) {
+  if (holder.gameStarted === true && holder.songChoice !== defaultTitle) {
     disableSongs = true;
   } else {
     disableSongs = false;

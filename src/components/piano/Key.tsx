@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import '../css/Piano.css';
 
+const whiteNote = 'whiteNote';
 const blackNote = 'blackNote';
 
 /**
@@ -23,8 +25,9 @@ function findSharp(keyLetter: string) {
  * @returns
  */
 const Key = function key(holder: {
-  note: string, keyLetter: string, keyNumber: string,
-  keyboard: string, alternative: string | undefined
+  keyLetter: string, keyNumber: string,
+  keyboard: string, alternative: string | undefined,
+  inputDevice: any
 }) {
   const hasSharp = findSharp(holder.keyLetter);
   const keyName = `${holder.keyLetter}${holder.keyNumber}`;
@@ -34,38 +37,32 @@ const Key = function key(holder: {
   const [sharpIsPressed, setSharpIsPressed] = useState(false);
 
   // Changes the color of a key (white -> gray / black -> gray).
-  const handleDoubleInput = (event: any) => {
+  const handleInput = (event: any) => {
     if (!event.repeat) {
+      if (hasSharp === true) {
+        if (event.key === holder.keyboard) {
+          setNoSharpIsPressed(true);
+        }
+        if (event.key === holder.alternative) {
+          setSharpIsPressed(true);
+        }
+      }
       if (event.key === holder.keyboard) {
         setNoSharpIsPressed(true);
-      }
-      if (event.key === holder.alternative) {
-        setSharpIsPressed(true);
       }
     }
   };
 
   // Changes the color of a key (gray -> white / gray -> black).
-  const handleDoubleInputEnd = (event: any) => {
-    if (event.key === holder.keyboard) {
-      setNoSharpIsPressed(false);
-    }
-    if (event.key === holder.alternative) {
-      setSharpIsPressed(false);
-    }
-  };
-
-  // Changes the color of a key (white -> gray).
-  const handleSingleInput = (event: any) => {
-    if (!event.repeat) {
+  const handleInputEnd = (event: any) => {
+    if (hasSharp === true) {
       if (event.key === holder.keyboard) {
-        setNoSharpIsPressed(true);
+        setNoSharpIsPressed(false);
+      }
+      if (event.key === holder.alternative) {
+        setSharpIsPressed(false);
       }
     }
-  };
-
-  // Changes the color of a key (gray -> white).
-  const handleSingleInputEnd = (event: any) => {
     if (event.key === holder.keyboard) {
       setNoSharpIsPressed(false);
     }
@@ -82,41 +79,74 @@ const Key = function key(holder: {
   };
 
   React.useEffect(() => {
-    if (hasSharp) {
-      window.addEventListener('keydown', handleDoubleInput);
-      window.addEventListener('keyup', handleDoubleInputEnd);
-      window.addEventListener('keypress', handleKeyboardHint);
+    if (holder.inputDevice !== null) {
+      console.log('Device linked');
+      holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
+        if (hasSharp === true) {
+          if (e.note.identifier === holder.keyboard) {
+            setNoSharpIsPressed(true);
+          }
+          if (e.note.identifier === holder.alternative) {
+            setSharpIsPressed(true);
+          }
+        } else if (e.note.identifier === holder.keyboard) {
+          setNoSharpIsPressed(true);
+        }
+      });
 
-      return () => {
-        window.removeEventListener('keydown', handleDoubleInput);
-        window.removeEventListener('keyup', handleDoubleInputEnd);
-        window.removeEventListener('keypress', handleKeyboardHint);
-      };
+      holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
+        if (hasSharp === true) {
+          if (e.note.identifier === holder.keyboard) {
+            setNoSharpIsPressed(false);
+          }
+          if (e.note.identifier === holder.alternative) {
+            setSharpIsPressed(false);
+          }
+        } else if (e.note.identifier === holder.keyboard) {
+          setNoSharpIsPressed(false);
+        }
+      });
     }
-    window.addEventListener('keydown', handleSingleInput);
-    window.addEventListener('keyup', handleSingleInputEnd);
+
+    window.addEventListener('keydown', handleInput);
+    window.addEventListener('keyup', handleInputEnd);
     window.addEventListener('keypress', handleKeyboardHint);
 
     return () => {
-      window.removeEventListener('keydown', handleSingleInput);
-      window.removeEventListener('keyup', handleSingleInputEnd);
+      window.removeEventListener('keydown', handleInput);
+      window.removeEventListener('keyup', handleInputEnd);
       window.removeEventListener('keypress', handleKeyboardHint);
     };
   }, []);
 
   if (hasSharp) {
     return (
-      <div className={holder.note} data-code={keyName} aria-hidden style={{ backgroundColor: noSharpIsPressed ? '#ccc' : 'white' }}>
-        <div className={blackNote} data-code={blackNoteExtra} aria-hidden style={{ backgroundColor: sharpIsPressed ? '#777' : 'black' }}>
+      <div
+        className={whiteNote}
+        data-code={keyName}
+        aria-hidden
+        style={{ backgroundColor: noSharpIsPressed ? '#ccc' : 'white' }}
+      >
+        <div
+          className={blackNote}
+          data-code={blackNoteExtra}
+          aria-hidden
+          style={{ backgroundColor: sharpIsPressed ? '#777' : 'black' }}
+        >
           <p className="blackNoteHint" style={{ visibility: keyboardHintIsVisible ? 'visible' : 'hidden' }}>{holder.alternative}</p>
         </div>
-        <p className="whiteNoteHint" style={{ visibility: keyboardHintIsVisible ? 'visible' : 'hidden' }}>{holder.keyboard}</p>
+        <p className="whiteNoteWithSharpHint" style={{ visibility: keyboardHintIsVisible ? 'visible' : 'hidden' }}>{holder.keyboard}</p>
       </div>
     );
   }
   return (
-    <div className={holder.note} data-code={keyName} aria-hidden style={{ backgroundColor: noSharpIsPressed ? '#ccc' : 'white' }}>
-      <p className="whiteNoteHint" style={{ visibility: keyboardHintIsVisible ? 'visible' : 'hidden' }}>{holder.keyboard}</p>
+    <div
+      className={whiteNote}
+      data-code={keyName}
+      aria-hidden
+      style={{ backgroundColor: noSharpIsPressed ? '#ccc' : 'white' }}
+    >
+      <p className="whiteNoteWithoutSharpHint" style={{ visibility: keyboardHintIsVisible ? 'visible' : 'hidden' }}>{holder.keyboard}</p>
     </div>
   );
 };

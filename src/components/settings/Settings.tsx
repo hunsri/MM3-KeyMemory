@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import '../css/Settings.css';
 import Difficulty from './Difficulty';
 import Manipulator from './Manipulator';
 import SongCollection from './SongCollection';
+
+import '../css/Settings.css';
 
 /**
  * In here: The game will be started, volume can be changed and seconds will be calculated.
@@ -19,6 +20,7 @@ const Settings = function settings(holder: {
   let secondsCounter = -1;
   let songLengthInSeconds = 0;
   let interval: ReturnType<typeof setInterval>;
+  const [listenReplayDisabled, setListenReplayDisabled] = useState(true);
   const [phase, setPhase] = useState(0); // 0 = Games didn't start / 1 = listen phase / 2 = your turn phase
   const [gameStatus, setGameStatus] = useState('Start');
 
@@ -54,6 +56,7 @@ const Settings = function settings(holder: {
       } else {
         // In the end of each turn the button name and the phase number must be changed.
         if (phase === 0) {
+          setListenReplayDisabled(false);
           setGameStatus('Your turn');
           setPhase(1);
         } else if (phase === 1) {
@@ -83,6 +86,7 @@ const Settings = function settings(holder: {
       } else if (phase === 1) {
         setPhase(2);
         holder.onPhaseChange(2);
+        setListenReplayDisabled(true);
       }
 
       // Fins out which game the user want to play, saves the length of his song and send it to the parent.
@@ -95,6 +99,15 @@ const Settings = function settings(holder: {
 
       startInterval();
     }
+  }
+
+  /**
+   * Makes it possible to restart the listening phase.
+   */
+  function restartListening() {
+    setGameStatus('Press me to restart listening');
+    setPhase(0);
+    holder.onPhaseChange(0);
   }
 
   /**
@@ -126,9 +139,11 @@ const Settings = function settings(holder: {
         gameStarted={holder.isGameStarted}
         songNameArray={holder.songNameArray}
         onSongChoiceChange={holder.onSongChoiceChange}
+        songChoice={holder.songChoice}
       />
       <Difficulty gameStarted={holder.isGameStarted} />
       <button type="button" onClick={startGame} id="startGameButton" disabled={holder.isGameStarted}>{gameStatus}</button>
+      <button type="button" onClick={restartListening} id="restartListeningButton" disabled={listenReplayDisabled}>Restart listening</button>
     </div>
   );
 };

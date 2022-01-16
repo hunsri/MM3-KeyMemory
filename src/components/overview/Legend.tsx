@@ -1,4 +1,5 @@
 import React from 'react';
+
 import '../css/Overview.css';
 
 /**
@@ -20,11 +21,11 @@ const Legend = function legend() {
         </tr>
         <tr>
           <td id="secondScorePoints" className="tableInformation">Blue</td>
-          <td id="greenStripeInformation" className="tableInformation">You missed a key</td>
+          <td id="blueStripeInformation" className="tableInformation">There wasnt a key</td>
         </tr>
         <tr>
           <td id="thirdScorePoints" className="tableInformation">Red</td>
-          <td id="greenStripeInformation" className="tableInformation">You hit the wrong key</td>
+          <td id="redStripeInformation" className="tableInformation">Key you should have hit</td>
         </tr>
       </table>
     </div>

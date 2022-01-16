@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect } from 'react';
 import { WebMidi } from 'webmidi';
 
-const MidiInputDisplay = function MidiInputDisplay() {
+import '../css/Piano.css';
+
+const MidiInputDisplay = function MidiInputDisplay(holder: {
+  onInputDeviceChange: any
+}) {
   const defaultInputDeviceIndex = 1;
-  const [lastOn, setLastOn] = useState('');
-  const [lastOff, setLastOff] = useState('');
   let inputDevice;
 
   function listenToNote() {
     inputDevice = WebMidi.inputs[defaultInputDeviceIndex];
 
     if (inputDevice !== null && inputDevice !== undefined) {
+      holder.onInputDeviceChange(inputDevice);
+      /*
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
-        setLastOn(e.note.identifier);
+        holder.onLastOnChange(e.note.identifier);
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
-        setLastOff(e.note.identifier);
+        holder.onLastOffChange(e.note.identifier);
       });
+      */
     }
   }
 
@@ -38,14 +42,7 @@ const MidiInputDisplay = function MidiInputDisplay() {
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return (
-    <div>
-      <p>
-        {`NoteOn: ${lastOn}`}
-      </p>
-      <p>
-        {`NoteOff: ${lastOff}`}
-      </p>
-    </div>
+    <div />
   );
 };
 
