@@ -4,24 +4,27 @@ import { WebMidi } from 'webmidi';
 import '../css/Piano.css';
 
 const MidiInputDisplay = function MidiInputDisplay(holder: {
-  onInputDeviceChange: any
+  onMidiDeviceChange: any
 }) {
-  const defaultInputDeviceIndex = 1;
   let inputDevice;
+  // let stringArray: string[];
+  const defaultInputDeviceIndex = 1;
 
   function listenToNote() {
     inputDevice = WebMidi.inputs[defaultInputDeviceIndex];
 
     if (inputDevice !== null && inputDevice !== undefined) {
-      holder.onInputDeviceChange(inputDevice);
+      holder.onMidiDeviceChange(inputDevice);
+
       /*
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
-        holder.onLastOnChange(e.note.identifier);
+        stringArray.push(e.note.identifier);
       });
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
-        holder.onLastOffChange(e.note.identifier);
+        stringArray.pop();
       });
       */
     }

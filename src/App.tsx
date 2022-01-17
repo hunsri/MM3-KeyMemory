@@ -57,6 +57,7 @@ const App = function app() {
       <body>
         <Piano
           onMidiDeviceChange={handleMidiDeviceChange}
+          inputDevice={midiDevice}
         />
         <Settings
           songNameArray={songNameArray}

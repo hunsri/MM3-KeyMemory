@@ -29,6 +29,7 @@ const Key = function key(holder: {
   keyboard: string, alternative: string | undefined,
   inputDevice: any
 }) {
+  let midiDeviceIsMounted = false;
   const hasSharp = findSharp(holder.keyLetter);
   const keyNameWhite = `${holder.keyLetter}${holder.keyNumber}`;
   const keyNameBlack = `${holder.keyLetter}#${holder.keyNumber}`;
@@ -78,9 +79,16 @@ const Key = function key(holder: {
     }
   };
 
+  if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
+    console.log('Device linked');
+    midiDeviceIsMounted = true;
+  } else {
+    console.log('Keyboard in use');
+    midiDeviceIsMounted = false;
+  }
+
   React.useEffect(() => {
-    if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
-      console.log('Device linked');
+    if (midiDeviceIsMounted) {
       holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
         if (hasSharp === true) {
           if (e.note.identifier === keyNameWhite) {
