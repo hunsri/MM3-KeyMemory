@@ -10,7 +10,7 @@ const blackNote = 'blackNote';
  * @param keyLetter
  * @returns
  */
-function findSharp(keyLetter: string) {
+function hasTheKeyASharpVariant(keyLetter: string): boolean {
   if (keyLetter !== 'E') {
     if (keyLetter !== 'B') {
       return true;
@@ -30,7 +30,7 @@ const Key = function key(holder: {
   inputDevice: any
 }) {
   let midiDeviceIsMounted = false;
-  const hasSharp = findSharp(holder.keyLetter);
+  const hasSharp = hasTheKeyASharpVariant(holder.keyLetter);
   const keyNameWhite = `${holder.keyLetter}${holder.keyNumber}`;
   const keyNameBlack = `${holder.keyLetter}#${holder.keyNumber}`;
   const [keyboardHintIsVisible, setKeyboardHintIsVisible] = useState(false);
@@ -80,14 +80,17 @@ const Key = function key(holder: {
   };
 
   if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
-    console.log('Device linked');
+    console.log('MIDI Device linked');
     midiDeviceIsMounted = true;
   } else {
-    console.log('Keyboard in use');
+    console.log('No MIDI Device detected');
     midiDeviceIsMounted = false;
   }
 
-  React.useEffect(() => {
+  /**
+   * Adds a listener to catch incoming note on and note off signals from the MIDI input device.
+   */
+  function activateMIDIKeyboardListener() {
     if (midiDeviceIsMounted) {
       holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
         if (hasSharp === true) {
@@ -114,18 +117,25 @@ const Key = function key(holder: {
           setNoSharpIsPressed(false);
         }
       });
-    } else {
-      window.addEventListener('keydown', handleInput);
-      window.addEventListener('keyup', handleInputEnd);
-      window.addEventListener('keypress', handleKeyboardHint);
     }
+  }
 
-    return () => {
-      window.removeEventListener('keydown', handleInput);
-      window.removeEventListener('keyup', handleInputEnd);
-      window.removeEventListener('keypress', handleKeyboardHint);
-    };
-  }, []);
+  /**
+   * Adds a listener to catch incoming key down and key up signals from the computer keyboard.
+   *
+   */
+  function activateComputerKeyboardListener() {
+    window.addEventListener('keydown', handleInput);
+    window.addEventListener('keyup', handleInputEnd);
+    window.addEventListener('keypress', handleKeyboardHint);
+  }
+
+  if (midiDeviceIsMounted) {
+    activateMIDIKeyboardListener();
+    activateComputerKeyboardListener();
+  } else {
+    activateComputerKeyboardListener();
+  }
 
   if (hasSharp) {
     return (

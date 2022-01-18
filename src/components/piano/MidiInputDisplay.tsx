@@ -7,7 +7,6 @@ const MidiInputDisplay = function MidiInputDisplay(holder: {
   onMidiDeviceChange: any
 }) {
   let inputDevice;
-  // let stringArray: string[];
   const defaultInputDeviceIndex = 1;
 
   function listenToNote() {
@@ -15,18 +14,6 @@ const MidiInputDisplay = function MidiInputDisplay(holder: {
 
     if (inputDevice !== null && inputDevice !== undefined) {
       holder.onMidiDeviceChange(inputDevice);
-
-      /*
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
-        stringArray.push(e.note.identifier);
-      });
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
-        stringArray.pop();
-      });
-      */
     }
   }
 
@@ -43,7 +30,6 @@ const MidiInputDisplay = function MidiInputDisplay(holder: {
       .catch((err) => alert(err));
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return (
     <div />
   );
