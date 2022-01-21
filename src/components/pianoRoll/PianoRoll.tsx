@@ -1,6 +1,7 @@
 import React from 'react';
 import NoteCanva from './NoteCanva';
-import './PianoRoll.css';
+
+import '../css/PianoRoll.css';
 
 const PianoRoll = function pianoRoll() {
   return (

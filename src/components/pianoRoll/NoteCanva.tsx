@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import './PianoRoll.css';
 import { clearCanvas, drawKey, spawnMidi } from './Help';
 import Note from './Note';
+
+import '../css/PianoRoll.css';
 
 const col = { red: 'red', blue: 'blue', green: 'green' };
 
