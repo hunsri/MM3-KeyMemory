@@ -1,4 +1,4 @@
-.pianoRoll{
+.pianoRoll {
     position: absolute;
     width: 98vmin;
     height: 300px;
@@ -6,7 +6,7 @@
     margin-left: 10px;
 }
 
-#pianoRollwhite{
+#pianoRollwhite {
     float: left;
     border: 1px solid red;
     width: 100%;
@@ -14,7 +14,7 @@
     z-index: -1;
 }
 
-#pianoRollblack{
+#pianoRollblack {
     float: left;
     border: 1px solid purple;
     width: 100%;
@@ -22,18 +22,17 @@
     z-index: 2;
 }
 
-.song{
+.song {
     margin-left: -7.139%;
     float: left;
-    height: 300px;
-    width: 7.141%;
+    height: 474px;
+    width: 7.14%;
     z-index: 0;
 }
 
-.note{
+.note {
     float: left;
-    height: 300px;
-    width: 7.141%;
+    height: 474px;
+    width: 7.14%;
     z-index: 1;
 }
-

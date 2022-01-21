@@ -6,9 +6,9 @@ import '../css/PianoRoll.css';
 
 const col = { red: 'red', blue: 'blue', green: 'green' };
 
-const NoteCanva = function notecanva(id: any, classname: any) {
+const NoteCanva = function noteCanva(holder: {id: any, className: any, keyboard: string}) {
   const noteRef: any = useRef();
-  const songRef:any = useRef();
+  const songRef: any = useRef();
 
   /* context of the canvas */
   let ctxNote: any; // where the user's notes are displayed
@@ -36,7 +36,8 @@ const NoteCanva = function notecanva(id: any, classname: any) {
 
   /**
    * Setter of keypress
-   * @param bool true if key is pressed */
+   * @param bool true if key is pressed
+   */
   function setKeyPressed(bool: boolean) {
     keypress = bool;
   }
@@ -84,7 +85,7 @@ const NoteCanva = function notecanva(id: any, classname: any) {
       lastSpawn = time;
       song.push(spawnMidi(height));
     }
-    // requestAnimationFrame(reader);
+    requestAnimationFrame(reader);
 
     clearCanvas(ctxSong, width, height);
 
@@ -134,7 +135,7 @@ const NoteCanva = function notecanva(id: any, classname: any) {
    */
   function keyDown(event: KeyboardEvent) { // handleInput
     if (!event.repeat) {
-      if (event.key === '1') {
+      if (event.key === holder.keyboard) {
         setKeyPressed(true);
         keyPressed();
       }
@@ -181,7 +182,7 @@ const NoteCanva = function notecanva(id: any, classname: any) {
   });
 
   return (
-    <div id={id} className={classname}>
+    <div id={holder.id} className={holder.className}>
       <canvas
         id="note"
         ref={noteRef}

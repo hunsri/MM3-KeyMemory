@@ -20,6 +20,7 @@
     background-color: black;
     width: 0.3vmin;
     height: 47vmin;
+    z-index: -3;
 }
 
 .whiteLine {
@@ -32,6 +33,7 @@
     background-color: rgb(175, 175, 175);
     width: 0.3vmin;
     height: 47vmin;
+    z-index: -3;
 }
 
 .songSlider {
