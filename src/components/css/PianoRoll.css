@@ -23,16 +23,25 @@
 }
 
 .song {
-    margin-left: -7.139%;
-    float: left;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     height: 474px;
-    width: 7.14%;
+    width: 2.5%;
     z-index: 0;
 }
 
 .note {
-    float: left;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     height: 474px;
-    width: 7.14%;
+    width: 2.5%;
     z-index: 1;
 }

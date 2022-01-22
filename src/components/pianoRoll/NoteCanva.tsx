@@ -6,7 +6,10 @@ import '../css/PianoRoll.css';
 
 const col = { red: 'red', blue: 'blue', green: 'green' };
 
-const NoteCanva = function noteCanva(holder: {id: any, className: any, keyboard: string}) {
+const NoteCanva = function noteCanva(holder: {
+  id: any, className: any,
+  keyboard: string, position: string
+}) {
   const noteRef: any = useRef();
   const songRef: any = useRef();
 
@@ -187,11 +190,13 @@ const NoteCanva = function noteCanva(holder: {id: any, className: any, keyboard:
         id="note"
         ref={noteRef}
         className="note"
+        style={{ right: holder.position }}
       />
       <canvas
         id="song"
         ref={songRef}
         className="song"
+        style={{ right: holder.position }}
       />
     </div>
   );
