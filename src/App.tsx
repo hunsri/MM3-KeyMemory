@@ -83,6 +83,8 @@ const App = function app() {
           restTime={restTime}
           pastTime={pastTime}
           totalSongLength={totalSongLength}
+          phase={phase}
+          inputDevice={midiDevice}
         />
       </body>
     </div>
