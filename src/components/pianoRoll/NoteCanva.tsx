@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { clearCanvas, drawKey, spawnMidi } from './Help';
+import {
+  clearCanvas, drawKey, spawnMidi,
+} from './Help';
 import Note from './Note';
 
 import '../css/PianoRoll.css';
@@ -38,6 +40,11 @@ const NoteCanva = function noteCanva(holder: {
   let color: string;
 
   /**
+   * Speed of the movement
+   */
+  const speed = 0.3;
+
+  /**
    * Setter of keypress
    * @param bool true if key is pressed
    */
@@ -51,15 +58,16 @@ const NoteCanva = function noteCanva(holder: {
    * @param y the y-coordinate
    * @param w the width
    * @returns true, if the canva is empty; false if not
+   * https://stackoverflow.com/questions/29090384/check-if-all-pixels-in-a-region-are-all-empty-in-javascript
    */
   function checkPixel(x: number, y: number) {
-    const img = ctxSong.getImageData(x, y, keywidth, 2);
+    const img = ctxSong.getImageData(x, y - 1, width, 1);
     const u32 = new Uint32Array(img.data.buffer);
     let i = 0;
     const len = u32.length;
     while (i < len) {
       i += 1;
-      if (u32[i] !== 0) {
+      if (u32[i] > 24) { // !==0
         return false;
       }
     } return true;
@@ -70,11 +78,14 @@ const NoteCanva = function noteCanva(holder: {
    * @returns color of the note
    */
   function drawColor(empty: boolean) {
-    if (!empty) {
-      color = col.green; // when match
+    console.log(empty);
+    let notecolor;
+    if (empty === false) {
+      notecolor = col.green; // when match
     } else {
-      color = col.red; // missed
+      notecolor = col.blue; // missed
     }
+    return notecolor;
   }
 
   /**
@@ -94,7 +105,7 @@ const NoteCanva = function noteCanva(holder: {
 
     for (let i = 0; i < song.length; i += 1) {
       const bar = song[i];
-      bar.y -= 0.5;
+      bar.y -= speed;
       ctxSong.fillStyle = bar.color;
       drawKey(ctxSong, bar.y, keywidth, bar.duration);
     }
@@ -110,8 +121,16 @@ const NoteCanva = function noteCanva(holder: {
    * Increases y and duration by 0.5
    */
   function increase() {
-    y += 0.5;
-    duration += 0.5;
+    y += speed;
+    duration += speed;
+  }
+
+  function newBar(key: string, cols: string) {
+    clearCanvas(ctxNote, width, height);
+    const bar = new Note(key, height - y, duration, cols);
+    song.push(bar);
+    y = 0;
+    duration = 0;
   }
 
   /**
@@ -120,9 +139,20 @@ const NoteCanva = function noteCanva(holder: {
   function keyPressed() {
     let reqId = 0;
     if (keypress === true) {
-      drawColor(checkPixel(0, y));
-      increase();
+      const oldcolor = color;
+      color = drawColor(checkPixel(0, height - 1));
 
+      if (color !== oldcolor && oldcolor !== undefined) {
+        y += 1;
+        duration -= 1;
+        clearCanvas(ctxNote, width, height);
+        const bar = new Note('key', height - y, duration, oldcolor);
+        song.push(bar);
+        y = 1;
+        duration = 0;
+      }
+
+      increase();
       ctxNote.fillStyle = color;
       drawKey(ctxNote, height - y, keywidth, duration);
 
@@ -150,12 +180,10 @@ const NoteCanva = function noteCanva(holder: {
    * @param event pressed key
    */
   function keyUp(event: KeyboardEvent) { // handleinputEnd
-    setKeyPressed(false);
-    clearCanvas(ctxNote, width, height);
-    const bar = new Note(event.key, height - y, duration, color);
-    song.push(bar);
-    y = 0;
-    duration = 0;
+    if (event.key === holder.keyboard) {
+      setKeyPressed(false);
+      newBar(event.key, color);
+    }
   }
 
   /**
