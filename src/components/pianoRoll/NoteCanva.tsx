@@ -8,7 +8,8 @@ const col = { red: 'red', blue: 'blue', green: 'green' };
 
 const NoteCanva = function noteCanva(holder: {
   id: any, className: any,
-  keyboard: string, position: string
+  keyboard: string, position: string,
+  phase: number, inputDevice: any
 }) {
   const noteRef: any = useRef();
   const songRef: any = useRef();
@@ -36,6 +37,9 @@ const NoteCanva = function noteCanva(holder: {
 
   /** color of the note/bar */
   let color: string;
+
+  /** true if MIDI device is connected */
+  let midiDeviceIsMounted = false;
 
   /**
    * Setter of keypress
@@ -84,9 +88,11 @@ const NoteCanva = function noteCanva(holder: {
     const time = Date.now();
 
     // spawning of the random notes
-    if (time > lastSpawn + spawnRate) {
-      lastSpawn = time;
-      song.push(spawnMidi(height));
+    if (true) {
+      if (time > lastSpawn + spawnRate) {
+        lastSpawn = time;
+        song.push(spawnMidi(height));
+      }
     }
     requestAnimationFrame(reader);
 
@@ -150,12 +156,14 @@ const NoteCanva = function noteCanva(holder: {
    * @param event pressed key
    */
   function keyUp(event: KeyboardEvent) { // handleinputEnd
-    setKeyPressed(false);
-    clearCanvas(ctxNote, width, height);
-    const bar = new Note(event.key, height - y, duration, color);
-    song.push(bar);
-    y = 0;
-    duration = 0;
+    if (event.key === holder.keyboard) {
+      setKeyPressed(false);
+      clearCanvas(ctxNote, width, height);
+      const bar = new Note(event.key, height - y, duration, color);
+      song.push(bar);
+      y = 0;
+      duration = 0;
+    }
   }
 
   /**
@@ -164,6 +172,34 @@ const NoteCanva = function noteCanva(holder: {
   function keyEvents() {
     window.addEventListener('keydown', keyDown);
     window.addEventListener('keyup', keyUp);
+  }
+
+  function midiEvent() {
+    if (midiDeviceIsMounted) {
+      holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
+        if (e.note.identifier === holder.keyboard) {
+          setKeyPressed(true);
+          keyPressed();
+        }
+      });
+
+      holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
+        if (e.note.identifier === holder.keyboard) {
+          setKeyPressed(false);
+          clearCanvas(ctxNote, width, height);
+          const bar = new Note(e.note.identifier, height - y, duration, color);
+          song.push(bar);
+          y = 0;
+          duration = 0;
+        }
+      });
+    }
+  }
+
+  if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
+    midiDeviceIsMounted = true;
+  } else {
+    midiDeviceIsMounted = false;
   }
 
   useEffect(() => {
@@ -179,7 +215,14 @@ const NoteCanva = function noteCanva(holder: {
 
       if (ctxNote || ctxSong) {
         reader();
-        keyEvents();
+
+        // Checks if MIDI device is connected
+        if (midiDeviceIsMounted) {
+          midiEvent();
+          keyEvents();
+        } else {
+          keyEvents();
+        }
       }
     }
   });
