@@ -21,11 +21,11 @@ const Legend = function legend() {
         </tr>
         <tr>
           <td id="secondScorePoints" className="tableInformation">Blue</td>
-          <td id="blueStripeInformation" className="tableInformation">There wasnt a key</td>
+          <td id="blueStripeInformation" className="tableInformation">You missed a key</td>
         </tr>
         <tr>
           <td id="thirdScorePoints" className="tableInformation">Red</td>
-          <td id="redStripeInformation" className="tableInformation">Key you should have hit</td>
+          <td id="redStripeInformation" className="tableInformation">You hit the wrong key</td>
         </tr>
       </table>
     </div>

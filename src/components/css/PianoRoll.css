@@ -1,3 +1,41 @@
+.gameBox {
+    position: absolute;
+    margin: auto;
+    top: -25vmin;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 0.5vmin solid black;
+    width: 98vmin;
+    height: 47vmin;
+}
+
+.blackLine {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    width: 0.3vmin;
+    height: 47vmin;
+    z-index: -3;
+}
+
+.whiteLine {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(175, 175, 175);
+    width: 0.3vmin;
+    height: 47vmin;
+    z-index: -3;
+}
+
 .song {
     position: absolute;
     margin: auto;

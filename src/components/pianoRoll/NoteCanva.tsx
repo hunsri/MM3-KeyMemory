@@ -1,5 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { clearCanvas, drawKey, spawnMidi } from './Help';
+import {
+  clearCanvas,
+  drawKey,
+  spawnMidi,
+  getRandomInt,
+} from './Help';
 import Note from './Note';
 
 import '../css/PianoRoll.css';
@@ -85,12 +90,12 @@ const NoteCanva = function noteCanva(holder: {
    * Animation of the song
    */
   function reader() {
-    const time = Date.now();
+    const time = Date.now() + getRandomInt(10000);
 
     // spawning of the random notes
-    if (true) {
+    if (holder.phase === 0) {
       if (time > lastSpawn + spawnRate) {
-        lastSpawn = time;
+        lastSpawn = time + getRandomInt(10000);
         song.push(spawnMidi(height));
       }
     }

@@ -97,6 +97,7 @@ const Settings = function settings(holder: {
         }
       }
 
+      // requestAnimationFrame(update);
       startInterval();
     }
   }
