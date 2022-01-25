@@ -13,7 +13,7 @@ function getRandomInt(max: number): number {
 }
 
 function spawnMidi(height: number): any {
-  const a = new Note('whiteKey', height, getRandomInt(50), 'blue');
+  const a = new Note('whiteKey', height, 50, 'blue');
   return a;
 }
 

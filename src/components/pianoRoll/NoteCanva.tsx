@@ -9,7 +9,7 @@ import Note from './Note';
 
 import '../css/PianoRoll.css';
 
-const col = { red: 'red', blue: 'blue', green: 'green' };
+const col = { wrong: 'red', missed: 'blue', right: 'green' };
 
 const NoteCanva = function noteCanva(holder: {
   id: any, className: any,
@@ -43,6 +43,9 @@ const NoteCanva = function noteCanva(holder: {
   /** color of the note/bar */
   let color: string;
 
+  /** speed of the bars moving up */
+  const speed = 0.3;
+
   /** true if MIDI device is connected */
   let midiDeviceIsMounted = false;
 
@@ -60,6 +63,7 @@ const NoteCanva = function noteCanva(holder: {
    * @param y the y-coordinate
    * @param w the width
    * @returns true, if the canva is empty; false if not
+   * https://stackoverflow.com/questions/29090384/check-if-all-pixels-in-a-region-are-all-empty-in-javascript
    */
   function checkPixel(x: number, y: number) {
     const img = ctxSong.getImageData(x, y, keywidth, 2);
@@ -68,7 +72,7 @@ const NoteCanva = function noteCanva(holder: {
     const len = u32.length;
     while (i < len) {
       i += 1;
-      if (u32[i] !== 0) {
+      if (u32[i] > 24) {
         return false;
       }
     } return true;
@@ -79,11 +83,13 @@ const NoteCanva = function noteCanva(holder: {
    * @returns color of the note
    */
   function drawColor(empty: boolean) {
-    if (!empty) {
-      color = col.green; // when match
+    let notecolor;
+    if (empty === false) {
+      notecolor = col.right; // when right key
     } else {
-      color = col.red; // missed
+      notecolor = col.wrong; // wrong key
     }
+    return notecolor;
   }
 
   /**
@@ -91,11 +97,13 @@ const NoteCanva = function noteCanva(holder: {
    */
   function reader() {
     const time = Date.now() + getRandomInt(10000);
+    // const time = Date.now(); // for testing
 
     // spawning of the random notes
     if (holder.phase === 0) {
       if (time > lastSpawn + spawnRate) {
         lastSpawn = time + getRandomInt(10000);
+        // lastSpawn = time + spawnRate; // for testing
         song.push(spawnMidi(height));
       }
     }
@@ -105,7 +113,7 @@ const NoteCanva = function noteCanva(holder: {
 
     for (let i = 0; i < song.length; i += 1) {
       const bar = song[i];
-      bar.y -= 0.5;
+      bar.y -= speed;
       ctxSong.fillStyle = bar.color;
       drawKey(ctxSong, bar.y, keywidth, bar.duration);
     }
@@ -121,8 +129,8 @@ const NoteCanva = function noteCanva(holder: {
    * Increases y and duration by 0.5
    */
   function increase() {
-    y += 0.5;
-    duration += 0.5;
+    y += speed;
+    duration += speed;
   }
 
   /**
@@ -131,7 +139,17 @@ const NoteCanva = function noteCanva(holder: {
   function keyPressed() {
     let reqId = 0;
     if (keypress === true) {
-      drawColor(checkPixel(0, y));
+      const oldcolor = color;
+      color = drawColor(checkPixel(0, height - 1));
+
+      if (color !== oldcolor && oldcolor !== undefined) {
+        y += 1; // must be 1 !
+        clearCanvas(ctxNote, width, height);
+        const bar = new Note('key', height - y, duration, oldcolor);
+        song.push(bar);
+        y = 0;
+        duration = 0;
+      }
       increase();
 
       ctxNote.fillStyle = color;
