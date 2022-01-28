@@ -17,103 +17,367 @@ const Pianoroll = function pianoroll(holder: {
     <div id="core" className="core">
       <div id="gameBox" className="gameBox">
         <div>
-          <Canvas className="whiteLine" position="93%" />
-          <NoteCanva id="w1" className="white" keyboard="q" position="93%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="93%"
+          />
+          <NoteCanva
+            id="w1"
+            className="white"
+            keyboard="q"
+            specificNote="C3"
+            position="93%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="78.5%" />
-          <NoteCanva id="w2" className="white" keyboard="w" position="78.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="78.5%"
+          />
+          <NoteCanva
+            id="w2"
+            className="white"
+            keyboard="w"
+            specificNote="D3"
+            position="78.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="64%" />
-          <NoteCanva id="w3" className="white" keyboard="e" position="64%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="64%"
+          />
+          <NoteCanva
+            id="w3"
+            className="white"
+            keyboard="e"
+            specificNote="E3"
+            position="64%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="50%" />
-          <NoteCanva id="w4" className="white" keyboard="r" position="50%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="50%"
+          />
+          <NoteCanva
+            id="w4"
+            className="white"
+            keyboard="r"
+            specificNote="F3"
+            position="50%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="35.5%" />
-          <NoteCanva id="w5" className="white" keyboard="t" position="35.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="35.5%"
+          />
+          <NoteCanva
+            id="w5"
+            className="white"
+            keyboard="t"
+            specificNote="G3"
+            position="35.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="21.5%" />
-          <NoteCanva id="w6" className="white" keyboard="z" position="21.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="21.5%"
+          />
+          <NoteCanva
+            id="w6"
+            className="white"
+            keyboard="z"
+            specificNote="A3"
+            position="21.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="7%" />
-          <NoteCanva id="w7" className="white" keyboard="u" position="7%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="7%"
+          />
+          <NoteCanva
+            id="w7"
+            className="white"
+            keyboard="u"
+            specificNote="B3"
+            position="7%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
 
         <div>
-          <Canvas className="blackLine" position="85.6%" />
-          <NoteCanva id="b1" className="black" keyboard="1" position="85.6%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="85.6%"
+          />
+          <NoteCanva
+            id="b1"
+            className="black"
+            keyboard="1"
+            specificNote="C#3"
+            position="85.6%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="blackLine" position="71.5%" />
-          <NoteCanva id="b2" className="black" keyboard="2" position="71.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="71.5%"
+          />
+          <NoteCanva
+            id="b2"
+            className="black"
+            keyboard="2"
+            specificNote="D#3"
+            position="71.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="blackLine" position="42.8%" />
-          <NoteCanva id="b3" className="black" keyboard="3" position="42.8%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="42.8%"
+          />
+          <NoteCanva
+            id="b3"
+            className="black"
+            keyboard="3"
+            specificNote="F#3"
+            position="42.8%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="blackLine" position="28.5%" />
-          <NoteCanva id="b4" className="black" keyboard="4" position="28.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="28.5%"
+          />
+          <NoteCanva
+            id="b4"
+            className="black"
+            keyboard="4"
+            specificNote="G#3"
+            position="28.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="blackLine" position="14.5%" />
-          <NoteCanva id="b5" className="black" keyboard="5" position="14.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="14.5%"
+          />
+          <NoteCanva
+            id="b5"
+            className="black"
+            keyboard="5"
+            specificNote="A#3"
+            position="14.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
 
         <div>
-          <Canvas className="blackLine" position="-14.5%" />
-          <NoteCanva id="b6" className="black" keyboard="6" position="-14.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="-14.5%"
+          />
+          <NoteCanva
+            id="b6"
+            className="black"
+            keyboard="6"
+            specificNote="C#4"
+            position="-14.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="blackLine" position="-28.5%" />
-          <NoteCanva id="b7" className="black" keyboard="7" position="-28.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="-28.5%"
+          />
+          <NoteCanva
+            id="b7"
+            className="black"
+            keyboard="7"
+            specificNote="D#4"
+            position="-28.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="blackLine" position="-57.3%" />
-          <NoteCanva id="b8" className="black" keyboard="8" position="-57.3%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="-57.3%"
+          />
+          <NoteCanva
+            id="b8"
+            className="black"
+            keyboard="8"
+            specificNote="F#4"
+            position="-57.3%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="blackLine" position="-71%" />
-          <NoteCanva id="b9" className="black" keyboard="9" position="-71%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="-71%"
+          />
+          <NoteCanva
+            id="b9"
+            className="black"
+            keyboard="9"
+            specificNote="G#4"
+            position="-71%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="blackLine" position="-85.8%" />
-          <NoteCanva id="b10" className="black" keyboard="0" position="-85.8%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="blackLine"
+            position="-85.8%"
+          />
+          <NoteCanva
+            id="b10"
+            className="black"
+            keyboard="0"
+            specificNote="A#4"
+            position="-85.8%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
 
         <div>
-          <Canvas className="whiteLine" position="-7%" />
-          <NoteCanva id="w8" className="white" keyboard="a" position="-7%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="-7%"
+          />
+          <NoteCanva
+            id="w8"
+            className="white"
+            keyboard="a"
+            specificNote="C4"
+            position="-7%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="-21.5%" />
-          <NoteCanva id="w9" className="white" keyboard="s" position="-21.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="-21.5%"
+          />
+          <NoteCanva
+            id="w9"
+            className="white"
+            keyboard="s"
+            specificNote="D4"
+            position="-21.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="-35.5%" />
-          <NoteCanva id="w10" className="white" keyboard="d" position="-35.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="-35.5%"
+          />
+          <NoteCanva
+            id="w10"
+            className="white"
+            keyboard="d"
+            specificNote="E4"
+            position="-35.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="-50%" />
-          <NoteCanva id="w11" className="white" keyboard="f" position="-50%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="-50%"
+          />
+          <NoteCanva
+            id="w11"
+            className="white"
+            keyboard="f"
+            specificNote="F4"
+            position="-50%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="-64%" />
-          <NoteCanva id="w12" className="white" keyboard="g" position="-64%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="-64%"
+          />
+          <NoteCanva
+            id="w12"
+            className="white"
+            keyboard="g"
+            specificNote="G4"
+            position="-64%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="-78.5%" />
-          <NoteCanva id="w13" className="white" keyboard="h" position="-78.5%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="-78.5%"
+          />
+          <NoteCanva
+            id="w13"
+            className="white"
+            keyboard="h"
+            specificNote="A4"
+            position="-78.5%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
         <div>
-          <Canvas className="whiteLine" position="-93%" />
-          <NoteCanva id="w14" className="white" keyboard="j" position="-93%" phase={holder.phase} inputDevice={holder.inputDevice} />
+          <Canvas
+            className="whiteLine"
+            position="-93%"
+          />
+          <NoteCanva
+            id="w14"
+            className="white"
+            keyboard="j"
+            specificNote="B4"
+            position="-93%"
+            phase={holder.phase}
+            inputDevice={holder.inputDevice}
+          />
         </div>
       </div>
     </div>

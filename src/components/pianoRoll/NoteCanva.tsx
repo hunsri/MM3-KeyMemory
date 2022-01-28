@@ -12,7 +12,7 @@ import '../css/PianoRoll.css';
 const col = { wrong: 'red', missed: 'blue', right: 'green' };
 
 const NoteCanva = function noteCanva(holder: {
-  id: any, className: any,
+  id: any, className: any, specificNote: string,
   keyboard: string, position: string,
   phase: number, inputDevice: any
 }) {
@@ -196,14 +196,14 @@ const NoteCanva = function noteCanva(holder: {
 
   function midiEvent() {
     holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
-      if (e.note.identifier === holder.keyboard) {
+      if (e.note.identifier === holder.specificNote) {
         setKeyPressed(true);
         keyPressed();
       }
     });
 
     holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
-      if (e.note.identifier === holder.keyboard) {
+      if (e.note.identifier === holder.specificNote) {
         setKeyPressed(false);
         clearCanvas(ctxNote, width, height);
         const bar = new Note(e.note.identifier, height - y, duration, color);
