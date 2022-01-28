@@ -10,9 +10,7 @@ import '../css/PianoRoll.css';
  * @param holder
  * @returns
  */
-const Pianoroll = function pianoroll(holder: {
-  phase: number, inputDevice: any
-}) {
+const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }) {
   return (
     <div id="core" className="core">
       <div id="gameBox" className="gameBox">

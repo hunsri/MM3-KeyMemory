@@ -8,7 +8,6 @@ const App = function app() {
   const songLengthArray = [10, 253];
   const [phase, setPhase] = useState(0); // 0 = Game didn't start / 1 = listen phase / 2 = your turn phase
   const [midiDevice, setMidiDevice] = useState();
-  const [midiEvent, setMidiEvent] = useState();
 
   // All const below are callbacks of children of this class (App.tsx).
   // Updates the phase number.
@@ -21,19 +20,12 @@ const App = function app() {
     setMidiDevice(changeMidiDevice);
   }, [setMidiDevice]);
 
-  // Updates the midi event.
-  const handleMidiEventChange = useCallback((changeMidiEvent: any) => {
-    setMidiEvent(changeMidiEvent);
-  }, [setMidiEvent]);
-
   return (
     <div className="App">
       <body>
         <Piano
           onMidiDeviceChange={handleMidiDeviceChange}
-          handleMidiEvent={handleMidiEventChange}
           inputDevice={midiDevice}
-          midiEvent={midiEvent}
         />
         <Middleman
           handlePhaseChange={handlePhaseChange}

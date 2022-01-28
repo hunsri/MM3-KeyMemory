@@ -123,7 +123,7 @@ const Key = function key(holder: {
   if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
     console.log('MIDI Device linked');
     activateMIDIKeyboardListener();
-    // activateComputerKeyboardListener();
+    activateComputerKeyboardListener();
   } else {
     console.log('No MIDI Device detected');
     activateComputerKeyboardListener();

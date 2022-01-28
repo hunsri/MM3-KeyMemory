@@ -231,6 +231,7 @@ const NoteCanva = function noteCanva(holder: {
         // Checks if MIDI device is connected
         if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
           midiEvent();
+          keyEvents();
         } else {
           keyEvents();
         }
