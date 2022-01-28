@@ -43,7 +43,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 474px;
+    height: 47vmin;
     width: 2.5%;
     z-index: 0;
 }
@@ -55,7 +55,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 474px;
+    height: 47vmin;
     width: 2.5%;
     z-index: 1;
 }

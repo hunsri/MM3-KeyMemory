@@ -46,9 +46,6 @@ const NoteCanva = function noteCanva(holder: {
   /** speed of the bars moving up */
   const speed = 0.3;
 
-  /** true if MIDI device is connected */
-  let midiDeviceIsMounted = false;
-
   /**
    * Setter of keypress
    * @param bool true if key is pressed
@@ -198,31 +195,23 @@ const NoteCanva = function noteCanva(holder: {
   }
 
   function midiEvent() {
-    if (midiDeviceIsMounted) {
-      holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
-        if (e.note.identifier === holder.keyboard) {
-          setKeyPressed(true);
-          keyPressed();
-        }
-      });
+    holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
+      if (e.note.identifier === holder.keyboard) {
+        setKeyPressed(true);
+        keyPressed();
+      }
+    });
 
-      holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
-        if (e.note.identifier === holder.keyboard) {
-          setKeyPressed(false);
-          clearCanvas(ctxNote, width, height);
-          const bar = new Note(e.note.identifier, height - y, duration, color);
-          song.push(bar);
-          y = 0;
-          duration = 0;
-        }
-      });
-    }
-  }
-
-  if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
-    midiDeviceIsMounted = true;
-  } else {
-    midiDeviceIsMounted = false;
+    holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
+      if (e.note.identifier === holder.keyboard) {
+        setKeyPressed(false);
+        clearCanvas(ctxNote, width, height);
+        const bar = new Note(e.note.identifier, height - y, duration, color);
+        song.push(bar);
+        y = 0;
+        duration = 0;
+      }
+    });
   }
 
   useEffect(() => {
@@ -240,9 +229,8 @@ const NoteCanva = function noteCanva(holder: {
         reader();
 
         // Checks if MIDI device is connected
-        if (midiDeviceIsMounted) {
+        if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
           midiEvent();
-          keyEvents();
         } else {
           keyEvents();
         }

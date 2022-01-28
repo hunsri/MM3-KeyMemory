@@ -1,6 +1,7 @@
 import React from 'react';
 import Key from './Key';
 import MidiInputDisplay from './MidiInputDisplay';
+import InputHandler from './InputHandler';
 
 import '../css/Piano.css';
 
@@ -8,7 +9,10 @@ import '../css/Piano.css';
  * A digital Pino.
  * @returns
  */
-const Piano = function piano(holder: { onMidiDeviceChange: any, inputDevice: any }) {
+const Piano = function piano(holder: {
+  onMidiDeviceChange: any, inputDevice: any,
+  handleMidiEvent: any, midiEvent: any
+}) {
   return (
     <div id="piano" className="piano">
       <Key keyLetter="C" keyNumber="3" keyboard="q" alternative="1" inputDevice={holder.inputDevice} />
@@ -29,6 +33,7 @@ const Piano = function piano(holder: { onMidiDeviceChange: any, inputDevice: any
 
       <p id="hintText">Press x to see which keys you need to press and c to hide it.</p>
       <MidiInputDisplay onMidiDeviceChange={holder.onMidiDeviceChange} />
+      <InputHandler inputDevice={holder.inputDevice} onMidiEventChange={holder.handleMidiEvent} />
     </div>
   );
 };

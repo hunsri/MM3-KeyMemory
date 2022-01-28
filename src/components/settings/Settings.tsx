@@ -15,14 +15,15 @@ const Settings = function settings(holder: {
   onSongChoiceChange: any, onRestTimeChange: any,
   onPastTimeChange: any, songChoice: string,
   songLengthArray: number[], onTotalSongLengthChange: any,
-  onPhaseChange: any, isGameStarted: boolean
+  onPhaseChange: any, isGameStarted: boolean,
+  phase: number
 }) {
   let secondsCounter = -1;
   let songLengthInSeconds = 0;
   let interval: ReturnType<typeof setInterval>;
   const [listenReplayDisabled, setListenReplayDisabled] = useState(true);
-  const [phase, setPhase] = useState(0); // 0 = Games didn't start / 1 = listen phase / 2 = your turn phase
   const [gameStatus, setGameStatus] = useState('Start');
+  const [phase, setPhase] = useState(0); // 0 = Game didn't start / 1 = listen phase / 2 = your turn phase
 
   /**
    * Calculates the seconds into a readable time (192 => 3:12).
@@ -81,10 +82,8 @@ const Settings = function settings(holder: {
       // Changes the overlay to the current phases.
       if (phase === 0) {
         setGameStatus('Listen');
-        setPhase(1);
         holder.onPhaseChange(1);
       } else if (phase === 1) {
-        setPhase(2);
         holder.onPhaseChange(2);
         setListenReplayDisabled(true);
       }

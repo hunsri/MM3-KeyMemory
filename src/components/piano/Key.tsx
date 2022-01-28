@@ -29,7 +29,6 @@ const Key = function key(holder: {
   keyboard: string, alternative: string | undefined,
   inputDevice: any
 }) {
-  let midiDeviceIsMounted = false;
   const hasSharp = hasTheKeyASharpVariant(holder.keyLetter);
   const keyNameWhite = `${holder.keyLetter}${holder.keyNumber}`;
   const keyNameBlack = `${holder.keyLetter}#${holder.keyNumber}`;
@@ -79,45 +78,35 @@ const Key = function key(holder: {
     }
   };
 
-  if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
-    console.log('MIDI Device linked');
-    midiDeviceIsMounted = true;
-  } else {
-    console.log('No MIDI Device detected');
-    midiDeviceIsMounted = false;
-  }
-
   /**
    * Adds a listener to catch incoming note on and note off signals from the MIDI input device.
    */
   function activateMIDIKeyboardListener() {
-    if (midiDeviceIsMounted) {
-      holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
-        if (hasSharp === true) {
-          if (e.note.identifier === keyNameWhite) {
-            setNoSharpIsPressed(true);
-          }
-          if (e.note.identifier === keyNameBlack) {
-            setSharpIsPressed(true);
-          }
-        } else if (e.note.identifier === keyNameWhite) {
+    holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
+      if (hasSharp === true) {
+        if (e.note.identifier === keyNameWhite) {
           setNoSharpIsPressed(true);
         }
-      });
+        if (e.note.identifier === keyNameBlack) {
+          setSharpIsPressed(true);
+        }
+      } else if (e.note.identifier === keyNameWhite) {
+        setNoSharpIsPressed(true);
+      }
+    });
 
-      holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
-        if (hasSharp === true) {
-          if (e.note.identifier === keyNameWhite) {
-            setNoSharpIsPressed(false);
-          }
-          if (e.note.identifier === keyNameBlack) {
-            setSharpIsPressed(false);
-          }
-        } else if (e.note.identifier === keyNameWhite) {
+    holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
+      if (hasSharp === true) {
+        if (e.note.identifier === keyNameWhite) {
           setNoSharpIsPressed(false);
         }
-      });
-    }
+        if (e.note.identifier === keyNameBlack) {
+          setSharpIsPressed(false);
+        }
+      } else if (e.note.identifier === keyNameWhite) {
+        setNoSharpIsPressed(false);
+      }
+    });
   }
 
   /**
@@ -130,10 +119,13 @@ const Key = function key(holder: {
     window.addEventListener('keypress', handleKeyboardHint);
   }
 
-  if (midiDeviceIsMounted) {
+  // Checks if a midi device is connected.
+  if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
+    console.log('MIDI Device linked');
     activateMIDIKeyboardListener();
-    activateComputerKeyboardListener();
+    // activateComputerKeyboardListener();
   } else {
+    console.log('No MIDI Device detected');
     activateComputerKeyboardListener();
   }
 
