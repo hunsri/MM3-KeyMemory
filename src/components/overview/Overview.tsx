@@ -1,9 +1,10 @@
 import React from 'react';
-import '../css/Overview.css';
 import Score from './Score';
 import State from './State';
 import Legend from './Legend';
 import MidiDevice from './MidiDevice';
+
+import '../css/Overview.css';
 
 /**
  * Shows information about the game.

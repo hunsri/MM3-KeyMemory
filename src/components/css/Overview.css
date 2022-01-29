@@ -4,7 +4,7 @@
     z-index: -1;
     top: 10vmin;
     left: 0;
-    right: 145vmin;
+    right: 75%;
     bottom: 0;
     border: 0.5vmin solid black;
     background-color: rgb(32, 32, 32);
@@ -18,7 +18,6 @@
 .overviewName {
     color: white;
     text-align: center;
-    font-size: 275%;
     font-weight: bold;
     margin: auto;
 }
@@ -65,16 +64,14 @@
 #scoreComponent {
     color: white;
     text-align: center;
-    font-size: 210%;
     margin: auto;
-    height: 13%;
+    height: 20%;
     width: 90%;
 }
 
 #stateComponent {
     color: white;
     text-align: center;
-    font-size: 210%;
     margin: auto;
     height: 20%;
     width: 90%;
@@ -83,16 +80,14 @@
 #legendComponent {
     color: white;
     text-align: center;
-    font-size: 210%;
     margin: auto;
-    height: 25%;
+    height: 30%;
     width: 90%;
 }
 
 #midiDeviceComponent {
     color: white;
     text-align: center;
-    font-size: 210%;
     margin: auto;
     width: 90%;
 }
@@ -120,4 +115,160 @@
     width: 45px;
     right: 0;
     left: 0;
+}
+
+@media screen and (min-width: 1525px) {
+    .overviewName {
+        font-size: 275%;
+    }
+    .state {
+        height: 65px;
+        width: 85px;
+    }
+    #scoreComponent {
+        font-size: 210%;
+    }
+    #stateComponent {
+        font-size: 210%;
+    }
+    #legendComponent {
+        font-size: 210%;
+    }
+    #midiDeviceComponent {
+        font-size: 210%;
+    }
+    #midiAccessibility {
+        height: 25px;
+        width: 45px;
+    }
+}
+
+@media screen and (min-height: 857.26px) {
+    .overviewName {
+        font-size: 275%;
+    }
+    .state {
+        height: 65px;
+        width: 85px;
+    }
+    #scoreComponent {
+        font-size: 210%;
+    }
+    #stateComponent {
+        font-size: 210%;
+    }
+    #legendComponent {
+        font-size: 210%;
+    }
+    #midiDeviceComponent {
+        font-size: 210%;
+    }
+    #midiAccessibility {
+        height: 25px;
+        width: 45px;
+    }
+}
+
+@media screen and (max-width: 1524px) {
+    .overviewName {
+        font-size: 225%;
+    }
+    .state {
+        height: 46.43px;
+        width: 60.71px;
+    }
+    #scoreComponent {
+        font-size: 170%;
+    }
+    #stateComponent {
+        font-size: 170%;
+    }
+    #legendComponent {
+        font-size: 170%;
+    }
+    #midiDeviceComponent {
+        font-size: 170%;
+    }
+    #midiAccessibility {
+        height: 17.86px;
+        width: 32.14px;
+    }
+}
+
+@media screen and (max-height: 857.25px) {
+    .overviewName {
+        font-size: 225%;
+    }
+    .state {
+        height: 46.43px;
+        width: 60.71px;
+    }
+    #scoreComponent {
+        font-size: 170%;
+    }
+    #stateComponent {
+        font-size: 170%;
+    }
+    #legendComponent {
+        font-size: 170%;
+    }
+    #midiDeviceComponent {
+        font-size: 170%;
+    }
+    #midiAccessibility {
+        height: 17.86px;
+        width: 32.14px;
+    }
+}
+
+@media screen and (max-width: 1224px) {
+    .overviewName {
+        font-size: 120%;
+    }
+    .state {
+        height: 32.5px;
+        width: 42.5px;
+    }
+    #scoreComponent {
+        font-size: 110%;
+    }
+    #stateComponent {
+        font-size: 110%;
+    }
+    #legendComponent {
+        font-size: 110%;
+    }
+    #midiDeviceComponent {
+        font-size: 110%;
+    }
+    #midiAccessibility {
+        height: 15.625px;
+        width: 28.125px;
+    }
+}
+
+@media screen and (max-height: 688.5px) {
+    .overviewName {
+        font-size: 120%;
+    }
+    .state {
+        height: 32.5px;
+        width: 42.5px;
+    }
+    #scoreComponent {
+        font-size: 110%;
+    }
+    #stateComponent {
+        font-size: 110%;
+    }
+    #legendComponent {
+        font-size: 110%;
+    }
+    #midiDeviceComponent {
+        font-size: 110%;
+    }
+    #midiAccessibility {
+        height: 15.625px;
+        width: 28.125px;
+    }
 }

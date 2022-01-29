@@ -130,13 +130,10 @@ const Settings = function settings(holder: {
     }
   };
 
-  React.useEffect(() => {
+  /* Enables the functionality to press enter to start the next phase. */
+  if (holder.isGameStarted === false) {
     window.addEventListener('keydown', handleGameStarted);
-
-    return () => {
-      window.removeEventListener('keydown', handleGameStarted);
-    };
-  }, []);
+  }
 
   return (
     <div id="settings" className="settings">

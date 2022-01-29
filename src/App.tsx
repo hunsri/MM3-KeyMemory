@@ -3,6 +3,8 @@ import { Piano } from './components/piano/Piano';
 import { Pianoroll } from './components/pianoRoll/Pianoroll';
 import { Middleman } from './components/Middleman';
 
+import './App.css';
+
 /**
  * Main functional component.
  * @returns
