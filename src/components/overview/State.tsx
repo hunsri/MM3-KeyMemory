@@ -6,16 +6,17 @@ import listenLogo from '../../images/listenIcon.png';
 
 /**
  * Shows the current state of the game.
- * Listen (blue), Player repeat (green), game didn't start (red).
+ * Listen (blue), Player plays (green), game didn't start (red).
  * @param holder
  * @returns
  */
 const State = function state(holder: { gameStarted: boolean, phase: number }) {
+  /* Booleans which changes the boxShadow color */
   let isStarted = false;
   let listenBeginned = false;
   let isNothing = true;
 
-  // Changes the color of each state.
+  /* Changes the color of each state. */
   if (holder.gameStarted === true && holder.phase === 1) {
     isStarted = false;
     listenBeginned = true;

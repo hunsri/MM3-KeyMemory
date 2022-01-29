@@ -3,15 +3,13 @@ import '../css/Game.css';
 
 /**
  * Creates a timline of a song.
- * @param holder got the name of a song and the lenght in it.
+ * @param holder
  * @returns
  */
-const Timeline = function timeline(holder: { songName: string, totalSongLength: number, pastLenght: number }) {
-  const sliderID = `${holder.songName}${'Slider'}`;
-
+const Timeline = function timeline(holder: { totalSongLength: number, pastLenght: number }) {
   return (
     <div>
-      <input className="songSlider" id={sliderID} type="range" min="0" max={`${holder.totalSongLength}`} value={`${holder.pastLenght}`} step="1" />
+      <input className="songSlider" type="range" min="0" max={`${holder.totalSongLength}`} value={`${holder.pastLenght}`} step="1" />
     </div>
   );
 };

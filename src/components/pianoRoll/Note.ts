@@ -1,30 +1,37 @@
+/**
+ * Will be created for each stripe.
+ */
 class Note {
-    key: string;
+  /* Id of each note */
+  key: string;
 
-    x: number;
+  /* X-Axis value */
+  x: number;
 
-    y: number;
+  /* Y-Axis value */
+  y: number;
 
-    duration: number;
+  /* Speed of each note */
+  duration: number;
 
-    pressed: any;
+  /* Color of a note */
+  color: string;
 
-    color: string;
+  constructor(key: string, y: number, duration: number, color: string) {
+    this.key = key;
+    this.x = 0;
+    this.y = y;
+    this.duration = duration;
+    this.color = color;
+  }
 
-    constructor(key: string, y: number, duration: number, color: string) {
-      this.key = key;
-      this.x = 0;
-      this.y = y;
-      this.duration = duration;
-      this.color = color;
-    }
+  addDuration(dur: number) {
+    this.duration += dur;
+  }
 
-    addDuration(dur: number) {
-      this.duration += dur;
-    }
-
-    getDuration() {
-      return this.duration;
-    }
+  getDuration() {
+    return this.duration;
+  }
 }
+
 export default Note;

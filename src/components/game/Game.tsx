@@ -10,7 +10,6 @@ import '../css/Game.css';
  * @returns
  */
 const Game = function game(holder: {
-  songNameArray: string[], songLenghtArray: number[],
   songChoice: string, pastTime: number,
   restTime: string, totalSongLength: number
 }) {
@@ -19,7 +18,7 @@ const Game = function game(holder: {
       <p id="songName">{holder.songChoice}</p>
       <div id="timeline">
         <p id="timelineLength">{holder.restTime}</p>
-        <Timeline songName={holder.songChoice} totalSongLength={holder.totalSongLength} pastLenght={holder.pastTime} />
+        <Timeline totalSongLength={holder.totalSongLength} pastLenght={holder.pastTime} />
       </div>
     </div>
   );

@@ -2,8 +2,13 @@ import React from 'react';
 
 import '../css/Settings.css';
 
+/**
+ * Displays one song.
+ * @param holder
+ * @returns
+ */
 const Song = function song(holder: { songName: string, disabled: boolean, onSongChoiceChange: any }) {
-  // Will send the button name (which is the song name) to parent class.
+  /* Will send the button name (which is the song name) to parent class. */
   function songChoice() {
     holder.onSongChoiceChange(holder.songName);
   }

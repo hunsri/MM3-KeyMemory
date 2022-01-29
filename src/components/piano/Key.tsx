@@ -6,7 +6,7 @@ const whiteNote = 'whiteNote';
 const blackNote = 'blackNote';
 
 /**
- * Finds out if a white key got a black key.
+ * Finds out if a white key got a black key and creates them.
  * @param keyLetter
  * @returns
  */
@@ -29,14 +29,25 @@ const Key = function key(holder: {
   keyboard: string, alternative: string | undefined,
   inputDevice: any
 }) {
+  /* Indicates if a white note got a black sharp */
   const hasSharp = hasTheKeyASharpVariant(holder.keyLetter);
-  const keyNameWhite = `${holder.keyLetter}${holder.keyNumber}`;
-  const keyNameBlack = `${holder.keyLetter}#${holder.keyNumber}`;
+
+  /* Name of a white note */
+  const keyNameWhite = `${holder.keyLetter}${holder.keyNumber}`; // like C4
+
+  /* Name of a black note */
+  const keyNameBlack = `${holder.keyLetter}#${holder.keyNumber}`; // like C#4
+
+  /* Show the hints to see which key the player has to hit on the keyboard */
   const [keyboardHintIsVisible, setKeyboardHintIsVisible] = useState(false);
+
+  /* Changes the color of a white note */
   const [noSharpIsPressed, setNoSharpIsPressed] = useState(false);
+
+  /* Changes the color of a black note */
   const [sharpIsPressed, setSharpIsPressed] = useState(false);
 
-  // Changes the color of a key (white -> gray / black -> gray).
+  /* Changes the color of a key (white -> gray / black -> gray). */
   const handleInput = (event: any) => {
     if (!event.repeat) {
       if (hasSharp === true) {
@@ -53,7 +64,7 @@ const Key = function key(holder: {
     }
   };
 
-  // Changes the color of a key (gray -> white / gray -> black).
+  /* Changes the color of a key (gray -> white / gray -> black). */
   const handleInputEnd = (event: any) => {
     if (hasSharp === true) {
       if (event.key === holder.keyboard) {
@@ -68,7 +79,7 @@ const Key = function key(holder: {
     }
   };
 
-  // Changes the text below keyboard.
+  /* Changes the text below keyboard. */
   const handleKeyboardHint = (event: any) => {
     if (event.key === 'x') {
       setKeyboardHintIsVisible(true);
@@ -111,7 +122,6 @@ const Key = function key(holder: {
 
   /**
    * Adds a listener to catch incoming key down and key up signals from the computer keyboard.
-   *
    */
   function activateComputerKeyboardListener() {
     window.addEventListener('keydown', handleInput);
@@ -119,7 +129,7 @@ const Key = function key(holder: {
     window.addEventListener('keypress', handleKeyboardHint);
   }
 
-  // Checks if a midi device is connected.
+  /* Checks if a midi device is connected. */
   if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
     console.log('MIDI Device linked');
     activateMIDIKeyboardListener();
@@ -130,6 +140,7 @@ const Key = function key(holder: {
   }
 
   if (hasSharp) {
+    // White note with a black note as a sharp.
     return (
       <div
         className={whiteNote}
@@ -149,6 +160,7 @@ const Key = function key(holder: {
       </div>
     );
   }
+  // White note without a black note as a sharp.
   return (
     <div
       className={whiteNote}

@@ -5,7 +5,7 @@ import MidiInputDisplay from './MidiInputDisplay';
 import '../css/Piano.css';
 
 /**
- * A digital Pino.
+ * A digital Pino with two octaves.
  * @returns
  */
 const Piano = function piano(holder: { onMidiDeviceChange: any, inputDevice: any }) {

@@ -4,7 +4,7 @@ import {
   drawKey,
   spawnMidi,
   getRandomInt,
-} from './Help';
+} from './NoteFunctions';
 import Note from './Note';
 
 import '../css/PianoRoll.css';
@@ -194,6 +194,9 @@ const NoteCanva = function noteCanva(holder: {
     window.addEventListener('keyup', keyUp);
   }
 
+  /**
+   * Adds MIDI listeners to draw notes
+   */
   function midiEvent() {
     holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
       if (e.note.identifier === holder.specificNote) {

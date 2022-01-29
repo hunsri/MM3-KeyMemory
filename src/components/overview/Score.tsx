@@ -2,6 +2,10 @@ import React from 'react';
 
 import '../css/Overview.css';
 
+/**
+ * Shows how accurate you played.
+ * @returns
+ */
 const Score = function score() {
   return (
     <div id="scoreComponent">

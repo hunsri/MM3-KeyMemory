@@ -1,6 +1,6 @@
 import React from 'react';
 import Canvas from './Canvas';
-import NoteCanva from './NoteCanva';
+import NoteCanvas from './NoteCanvas';
 
 import '../css/PianoRoll.css';
 
@@ -19,7 +19,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="93%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w1"
             className="white"
             keyboard="q"
@@ -34,7 +34,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="78.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w2"
             className="white"
             keyboard="w"
@@ -49,7 +49,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="64%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w3"
             className="white"
             keyboard="e"
@@ -64,7 +64,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="50%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w4"
             className="white"
             keyboard="r"
@@ -79,7 +79,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="35.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w5"
             className="white"
             keyboard="t"
@@ -94,7 +94,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="21.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w6"
             className="white"
             keyboard="z"
@@ -109,7 +109,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="7%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w7"
             className="white"
             keyboard="u"
@@ -125,7 +125,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="85.6%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b1"
             className="black"
             keyboard="1"
@@ -140,7 +140,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="71.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b2"
             className="black"
             keyboard="2"
@@ -155,7 +155,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="42.8%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b3"
             className="black"
             keyboard="3"
@@ -170,7 +170,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="28.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b4"
             className="black"
             keyboard="4"
@@ -185,7 +185,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="14.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b5"
             className="black"
             keyboard="5"
@@ -201,7 +201,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="-14.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b6"
             className="black"
             keyboard="6"
@@ -216,7 +216,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="-28.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b7"
             className="black"
             keyboard="7"
@@ -231,7 +231,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="-57.3%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b8"
             className="black"
             keyboard="8"
@@ -246,7 +246,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="-71%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b9"
             className="black"
             keyboard="9"
@@ -261,7 +261,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="blackLine"
             position="-85.8%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="b10"
             className="black"
             keyboard="0"
@@ -277,7 +277,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="-7%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w8"
             className="white"
             keyboard="a"
@@ -292,7 +292,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="-21.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w9"
             className="white"
             keyboard="s"
@@ -307,7 +307,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="-35.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w10"
             className="white"
             keyboard="d"
@@ -322,7 +322,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="-50%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w11"
             className="white"
             keyboard="f"
@@ -337,7 +337,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="-64%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w12"
             className="white"
             keyboard="g"
@@ -352,7 +352,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="-78.5%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w13"
             className="white"
             keyboard="h"
@@ -367,7 +367,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             className="whiteLine"
             position="-93%"
           />
-          <NoteCanva
+          <NoteCanvas
             id="w14"
             className="white"
             keyboard="j"

@@ -8,16 +8,20 @@ import '../css/Settings.css';
  * @returns
  */
 const Difficulty = function difficulty(holder: { gameStarted: boolean }) {
+  /* Value of a slider */
   const [value, setValue] = useState(0.5);
+
+  /* Disables a slider */
   let disableSlider = false;
 
-  // Will disable the slider if the game started.
+  /* Will disable the slider if the game started. */
   if (holder.gameStarted === true) {
     disableSlider = true;
   } else {
     disableSlider = false;
   }
 
+  /* Handles changes of a slider */
   function handleChange(event: any) {
     setValue(event.target.value);
   }

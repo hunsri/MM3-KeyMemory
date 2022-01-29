@@ -18,11 +18,22 @@ const Settings = function settings(holder: {
   onPhaseChange: any, isGameStarted: boolean,
   phase: number
 }) {
-  let secondsCounter = -1;
-  let songLengthInSeconds = 0;
+  /* Every time a second will be remove, secondsCounter will be added by 1 */
+  let secondsCounter = -1; // like 1 -> 2 -> 3 -> 4 ... (Past seconds)
+
+  /* Holds the rest seconds of a song */
+  let songLengthInSeconds = 0; // like 10 -> 9 -> 8 -> 7 -> 6 ... (Rest seconds)
+
+  /* Is an interval which we need to count down seconds */
   let interval: ReturnType<typeof setInterval>;
+
+  /* Dis- or enables the restartListeningButton */
   const [listenReplayDisabled, setListenReplayDisabled] = useState(true);
+
+  /* Will be displayed on the startGameButton */
   const [gameStatus, setGameStatus] = useState('Start');
+
+  /* Internal phase counter which indicates in which phase the game currently is */
   const [phase, setPhase] = useState(0); // 0 = Game didn't start / 1 = listen phase / 2 = your turn phase
 
   /**
@@ -33,7 +44,7 @@ const Settings = function settings(holder: {
     const minutes = Math.floor(divisorForMinutes / 60);
     const seconds = Math.ceil(divisorForMinutes % 60);
 
-    // Crates times like 0:03 instead of 0:3.
+    /* Crates times like 0:03 instead of 0:3. */
     if (seconds < 10) {
       secondsCounter += 1;
       songLengthInSeconds -= 1;
@@ -55,7 +66,7 @@ const Settings = function settings(holder: {
       if (songLengthInSeconds >= 0) {
         timeCalculator();
       } else {
-        // In the end of each turn the button name and the phase number must be changed.
+        /* In the end of each turn the button name and the phase number must be changed. */
         if (phase === 0) {
           setListenReplayDisabled(false);
           setGameStatus('Your turn');
@@ -66,7 +77,7 @@ const Settings = function settings(holder: {
           setGameStatus('Start');
         }
 
-        // Both needs to be set to 0/false to change the states (States.tsx).
+        /* Both needs to be set to 0/false to change the states (States.tsx). */
         holder.onPhaseChange(0);
         holder.onGameStartChange(false);
         clearInterval(interval);
@@ -79,7 +90,7 @@ const Settings = function settings(holder: {
       console.log('Game started');
       holder.onGameStartChange(true);
 
-      // Changes the overlay to the current phases.
+      /* Changes the overlay to the current phases. */
       if (phase === 0) {
         setGameStatus('Listen');
         holder.onPhaseChange(1);
@@ -88,7 +99,7 @@ const Settings = function settings(holder: {
         setListenReplayDisabled(true);
       }
 
-      // Fins out which game the user want to play, saves the length of his song and send it to the parent.
+      /* Finds out which game the user want to play, saves the length of his song and send it to the parent. */
       for (let index = 0; index <= holder.songNameArray.length; index += 1) {
         if (holder.songNameArray[index] === holder.songChoice) {
           songLengthInSeconds = holder.songLengthArray[index];
@@ -96,7 +107,6 @@ const Settings = function settings(holder: {
         }
       }
 
-      // requestAnimationFrame(update);
       startInterval();
     }
   }

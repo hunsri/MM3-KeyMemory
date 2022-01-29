@@ -8,9 +8,10 @@ import '../css/Overview.css';
  * @returns
  */
 const MidiDevice = function midiDevice(holder: { isDeviceAccessible: any }) {
+  /* Boolean to change the color of div "midiAccessibility" */
   let isAccessible = false;
 
-  // Changes the color of the div midiAccessibility.
+  /* Changes the color of the div midiAccessibility. */
   if (holder.isDeviceAccessible !== null && holder.isDeviceAccessible !== undefined) {
     console.log('Is accessible');
     isAccessible = true;

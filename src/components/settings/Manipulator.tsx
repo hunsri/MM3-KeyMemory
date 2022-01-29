@@ -8,8 +8,10 @@ import '../css/Settings.css';
  * @returns
  */
 const Manipulator = function manipulator(holder: { title: string, id: string}) {
+  /* Value of a slider */
   const [value, setValue] = useState(0.5);
 
+  /* Handles changes of a slider */
   function handleChange(event: any) {
     setValue(event.target.value);
   }

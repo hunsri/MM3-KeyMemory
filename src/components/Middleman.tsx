@@ -4,7 +4,8 @@ import { Settings } from './settings/Settings';
 import { Game } from './game/Game';
 
 /**
- * This component is a wrapper which holds values which
+ * Wrapper functional component.
+ * Holds information which change often.
  * @param holder
  * @returns
  */
@@ -13,10 +14,19 @@ const Middleman = function middleman(holder: {
   handlePhaseChange: any, phase: number,
   songNameArray: string[], songLengthArray: number[]
 }) {
+  /* Visible time */
   const [restTime, setRestTime] = useState('0:00'); // like 3:40 -> 3:39 -> 3:38
+
+  /* Counter for seconds */
   const [pastTime, setPastTime] = useState(0); // like 1 -> 2 -> 3 (seconds)
+
+  /* Saves the length of selected song */
   const [totalSongLength, setTotalSongLength] = useState(0);
+
+  /* Needed to disable UI buttons */
   const [gameStarted, setGameStarted] = useState(true);
+
+  /* Needed for multiple reasons like showing the current song name */
   const [songChoice, setSongChoice] = useState('Choose a song and press start');
 
   // All const below are callbacks of children of this class (App.tsx).
@@ -67,8 +77,6 @@ const Middleman = function middleman(holder: {
         gameStarted={gameStarted}
       />
       <Game
-        songNameArray={holder.songNameArray}
-        songLenghtArray={holder.songLengthArray}
         songChoice={songChoice}
         restTime={restTime}
         pastTime={pastTime}
