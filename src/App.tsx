@@ -12,8 +12,8 @@ import './App.css';
  */
 const App = function app() {
   /* Arrays which hold song informations */
-  const songNameArray = ['Die Lilie', 'Für die Liebe']; // Names of songs
-  const songLengthArray = [10, 253]; // Length of songs
+  const songNameArray = ['Beethoven', 'Bach']; // Names of songs
+  const songLengthArray = [43, 552]; // Length of songs
 
   /* Says in which state the game is */
   const [phase, setPhase] = useState(0); // 0 = Game didn't start / 1 = listen phase / 2 = your turn phase
@@ -31,12 +31,6 @@ const App = function app() {
   const handleMidiDeviceChange = useCallback((changeMidiDevice: any) => {
     setMidiDevice(changeMidiDevice);
   }, [setMidiDevice]);
-
-  // gets executed when the app starts
-  // useEffect(() => {
-  //   const mp = new MidiPlayer();
-  //   mp.convertAndPlay();
-  // }, []);
 
   return (
     <div className="App">

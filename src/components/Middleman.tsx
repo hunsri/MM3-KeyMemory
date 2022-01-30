@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Overview } from './overview/Overview';
 import { Settings } from './settings/Settings';
 import { Game } from './game/Game';
+import { switchSong } from './midiPlayer/SongSwitcher';
 
 /**
  * Wrapper functional component.
@@ -39,6 +40,7 @@ const Middleman = function middleman(holder: {
   const handleSongChoiceChange = useCallback((changeSongChoice: string) => {
     setGameStarted(false);
     setSongChoice(changeSongChoice);
+    switchSong(changeSongChoice);
   }, [setSongChoice]);
 
   // Updates the restTime string.

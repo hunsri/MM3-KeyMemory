@@ -1,23 +1,19 @@
 import { Midi } from '@tonejs/midi';
 import { playSoundOnPlayback } from './MidiPlayerSound';
 import { setNoteDuration } from './NoteStates';
+import { getLowestOctave, getSongIndex } from './SongSwitcher';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Tone = require('tone');
 
-// the lowest octave that should be displayed
-const lowestOctave = 4;
-
 class MidiPlayer {
     readonly chosenSongIndex = 0;
 
-    readonly songNames = ['examples_bach_846.mid'];
+    readonly songNames = ['BeethovenOde_To_Joy_Easy.mid', 'examples_bach_846.mid'];
 
-    readonly path = 'http://127.0.0.1:8080/backend/public/';
+    readonly path = '/backend/public/';
 
     lastChosenSongPath = '';
-
-    readonly currentlyChosenSongPath = (`${this.path}${this.songNames[this.chosenSongIndex]}`);
 
     // filled by a function, don't interact with this variable, stuff will break
     tonejsMidiObject: any | null = null;
@@ -31,15 +27,17 @@ class MidiPlayer {
     async convertMidiToTonejs() {
       let midiReturnValue;
 
-      console.log(`plays ${this.currentlyChosenSongPath}`);
+      // let lowestOctave = getLowestOctave;
+      const currentlyChosenSongPath = (`${this.path}${this.songNames[getSongIndex()]}`);
+      console.log(`plays ${currentlyChosenSongPath}`);
 
       const midiPromise = new Promise((resolve) => {
-        if (this.currentlyChosenSongPath !== null) {
-          if (this.currentlyChosenSongPath !== this.lastChosenSongPath) {
-            Midi.fromUrl(this.currentlyChosenSongPath).then((midi) => {
+        if (currentlyChosenSongPath !== null) {
+          if (currentlyChosenSongPath !== this.lastChosenSongPath) {
+            Midi.fromUrl(currentlyChosenSongPath).then((midi) => {
               // console.log('song wasnt converted yet, converted it');
               // console.log(midi);
-              this.lastChosenSongPath = this.currentlyChosenSongPath;
+              this.lastChosenSongPath = currentlyChosenSongPath;
               this.tonejsMidiObject = midi;
               midiReturnValue = this.tonejsMidiObject;
               resolve(midiReturnValue);
@@ -69,6 +67,8 @@ class MidiPlayer {
 
     // eslint-disable-next-line class-methods-use-this
     setRespectiveGlobalNoteState(noteName: string, duration: number) {
+      const lowestOctave = getLowestOctave();
+
       if (noteName === `C${lowestOctave}`) { setNoteDuration(0, duration); }
       if (noteName === `C#${lowestOctave}`) { setNoteDuration(1, duration); }
       if (noteName === `D${lowestOctave}`) { setNoteDuration(2, duration); }
@@ -98,19 +98,6 @@ class MidiPlayer {
     playTheSong(midi: any) {
       const now = Tone.now() + 0.5;
       midi.tracks.forEach((track: { notes: any[]; }) => {
-        // create a synth for each track
-        // only using 1 synth instrument here, default is 4
-        // const synth = new Tone.PolySynth(1, Tone.Synth, {
-        //   envelope: {
-        //     attack: 0.02,
-        //     decay: 0.1,
-        //     sustain: 0.3,
-        //     release: 1,
-        //   },
-        // }).toMaster();
-
-        // Tone.Master.volume.value = 1;
-        // this.synths.push(synth);
         // schedule all of the events
         track.notes.forEach((note) => {
           // registers the events for the sound
