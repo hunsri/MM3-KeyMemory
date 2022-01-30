@@ -1,0 +1,85 @@
+.songSlider {
+    position: absolute;
+    margin: auto;
+    top: 8%;
+    left: 0;
+    right: 0;
+    bottom: 87%;
+    width: 94%;
+}
+
+#songName {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 92%;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+#timelineLength {
+    position: absolute;
+    margin: auto;
+    left: 92%;
+    right: 0;
+    bottom: 90%;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 1525px) {
+    #songName {
+        font-size: 275%;
+    }
+    #timelineLength {
+        font-size: 120%;
+    }
+}
+
+@media screen and (min-height: 857.26px) {
+    #songName {
+        font-size: 275%;
+    }
+    #timelineLength {
+        font-size: 120%;
+    }
+}
+
+@media screen and (max-width: 1524px) {
+    #songName {
+        font-size: 225%;
+    }
+    #timelineLength {
+        font-size: 75%;
+    }
+}
+
+@media screen and (max-height: 857.25px) {
+    #songName {
+        font-size: 225%;
+    }
+    #timelineLength {
+        font-size: 75%;
+    }
+}
+
+@media screen and (max-width: 1224px) {
+    #songName {
+        font-size: 175%;
+    }
+    #timelineLength {
+        font-size: 75%;
+    }
+}
+
+@media screen and (max-height: 688.5px) {
+    #songName {
+        font-size: 175%;
+    }
+    #timelineLength {
+        font-size: 75%;
+    }
+}
