@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import '../css/Piano.css';
+import { playSoundOnPiano } from './PianoSound';
 
 const whiteNote = 'whiteNote';
 const blackNote = 'blackNote';
@@ -53,13 +54,16 @@ const Key = function key(holder: {
       if (hasSharp === true) {
         if (event.key === holder.keyboard) {
           setNoSharpIsPressed(true);
+          playSoundOnPiano(keyNameWhite);
         }
         if (event.key === holder.alternative) {
           setSharpIsPressed(true);
+          playSoundOnPiano(keyNameBlack);
         }
       }
       if (event.key === holder.keyboard) {
         setNoSharpIsPressed(true);
+        playSoundOnPiano(keyNameWhite);
       }
     }
   };
@@ -97,12 +101,15 @@ const Key = function key(holder: {
       if (hasSharp === true) {
         if (e.note.identifier === keyNameWhite) {
           setNoSharpIsPressed(true);
+          playSoundOnPiano(keyNameWhite);
         }
         if (e.note.identifier === keyNameBlack) {
           setSharpIsPressed(true);
+          playSoundOnPiano(keyNameBlack);
         }
       } else if (e.note.identifier === keyNameWhite) {
         setNoSharpIsPressed(true);
+        playSoundOnPiano(keyNameWhite);
       }
     });
 

@@ -27,10 +27,23 @@
     color: white;
     text-align: center;
     margin: auto;
-    height: 12%;
+    height: 15%;
     width: 90%;
 }
 
+.muteButton {
+    position: relative;
+    display: block;
+    background-color:rgb(25, 25, 25);
+    color: white;
+    text-align: center;
+    margin: auto auto;
+    box-sizing: border-box; 
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
+    max-width: 100%;
+    max-height: 100%;
+    width: 20%;
+}
 .ownVolumeSlider {
 	position: absolute;
 	left: 24px;
