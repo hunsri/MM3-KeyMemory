@@ -1,19 +1,11 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-absolute-path */
 import { Midi } from '@tonejs/midi';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// import fs from 'fs';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import { setNoteDuration } from './NoteStates';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Tone = require('tone');
 
-// const midiDataTest = fs.readFileSync('/../../../public/songs/examples_bach_846.mid');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// const midiDataTest = require('../../songs/examples_bach_846.mid');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const NoteCanvas = require('../pianoRoll/NoteCanvas');
+// the lowest octave that should be displayed
+const lowestOctave = 4;
 
 class MidiPlayer {
     readonly chosenSongIndex = 0;
@@ -39,23 +31,20 @@ class MidiPlayer {
       let midiReturnValue;
 
       console.log(`plays ${this.currentlyChosenSongPath}`);
-      // console.log(FileUtils.getFilesInDirectory(`${this.currentlyChosenSongPath}));
 
       const midiPromise = new Promise((resolve) => {
         if (this.currentlyChosenSongPath !== null) {
           if (this.currentlyChosenSongPath !== this.lastChosenSongPath) {
-            // const midiData = fs.readFileSync('/../../../public/songs/examples_bach_846.mid');
-            // const midi = new Midi(midiDataTest);
             Midi.fromUrl(this.currentlyChosenSongPath).then((midi) => {
-              console.log('song wasnt converted yet, converted it');
-              console.log(midi);
+              // console.log('song wasnt converted yet, converted it');
+              // console.log(midi);
               this.lastChosenSongPath = this.currentlyChosenSongPath;
               this.tonejsMidiObject = midi;
               midiReturnValue = this.tonejsMidiObject;
               resolve(midiReturnValue);
             });
           } else {
-            console.log('song unchanged, no need for reloading it');
+            // console.log('song unchanged, no need for reloading it');
             midiReturnValue = this.tonejsMidiObject;
             resolve(midiReturnValue);
           }
@@ -77,11 +66,37 @@ class MidiPlayer {
       }
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    setRespectiveGlobalNoteState(noteName: string, duration: number) {
+      if (noteName === `C${lowestOctave}`) { setNoteDuration(0, duration); }
+      if (noteName === `C#${lowestOctave}`) { setNoteDuration(1, duration); }
+      if (noteName === `D${lowestOctave}`) { setNoteDuration(2, duration); }
+      if (noteName === `D#${lowestOctave}`) { setNoteDuration(3, duration); }
+      if (noteName === `E${lowestOctave}`) { setNoteDuration(4, duration); }
+      if (noteName === `F${lowestOctave}`) { setNoteDuration(5, duration); }
+      if (noteName === `F#${lowestOctave}`) { setNoteDuration(6, duration); }
+      if (noteName === `G${lowestOctave}`) { setNoteDuration(7, duration); }
+      if (noteName === `G#${lowestOctave}`) { setNoteDuration(8, duration); }
+      if (noteName === `A${lowestOctave}`) { setNoteDuration(9, duration); }
+      if (noteName === `A#${lowestOctave}`) { setNoteDuration(10, duration); }
+      if (noteName === `B${lowestOctave}`) { setNoteDuration(11, duration); }
+      if (noteName === `C${lowestOctave + 1}`) { setNoteDuration(12, duration); }
+      if (noteName === `C#${lowestOctave + 1}`) { setNoteDuration(13, duration); }
+      if (noteName === `D${lowestOctave + 1}`) { setNoteDuration(14, duration); }
+      if (noteName === `D#${lowestOctave + 1}`) { setNoteDuration(15, duration); }
+      if (noteName === `E${lowestOctave + 1}`) { setNoteDuration(16, duration); }
+      if (noteName === `F${lowestOctave + 1}`) { setNoteDuration(17, duration); }
+      if (noteName === `F#${lowestOctave + 1}`) { setNoteDuration(18, duration); }
+      if (noteName === `G${lowestOctave + 1}`) { setNoteDuration(19, duration); }
+      if (noteName === `G#${lowestOctave + 1}`) { setNoteDuration(20, duration); }
+      if (noteName === `A${lowestOctave + 1}`) { setNoteDuration(21, duration); }
+      if (noteName === `A#${lowestOctave + 1}`) { setNoteDuration(22, duration); }
+      if (noteName === `B${lowestOctave + 1}`) { setNoteDuration(23, duration); }
+    }
+
     playTheSong(midi: any) {
       const now = Tone.now() + 0.5;
-      console.log(midi.tracks);
       midi.tracks.forEach((track: { notes: any[]; }) => {
-        console.log('track');
         // create a synth for each track
         // only using 1 synth instrument here, default is 4
         const synth = new Tone.PolySynth(1, Tone.Synth, {
@@ -95,24 +110,20 @@ class MidiPlayer {
         this.synths.push(synth);
         // schedule all of the events
         track.notes.forEach((note) => {
-          // console.log('note');
-          // console.log(`${note.name}, ${note.duration}, ${note.time + now}, ${note.velocity}`);
-
+          // registers the events for the sound
           synth.triggerAttackRelease(note.name, note.duration, note.time + now, note.velocity);
-          // synth.triggerAttackRelease('C4', '2n');
           // eslint-disable-next-line no-unused-vars
           const timedCallbackNoteDown = (time: any) => {
-            // console.log(`${time.toFixed(4)}: Down ${note.name}`);
+            this.setRespectiveGlobalNoteState(note.name, note.duration);
           };
           // eslint-disable-next-line no-unused-vars
           const timedCallbackNoteUp = (time: any) => {
-            // console.log(`${time.toFixed(4)}: Up   ${note.name}`);
+            this.setRespectiveGlobalNoteState(note.name, 0);
           };
 
           // new Tone.Event(myCallbacker(note.name, timedCallback));
           Tone.Transport.scheduleOnce((time: any) => {
             timedCallbackNoteDown(time);
-            NoteCanvas.createNote(note.name, note.duration);
           }, note.time);
 
           Tone.Transport.scheduleOnce((time: any) => {
@@ -120,17 +131,14 @@ class MidiPlayer {
           }, note.time + note.duration);
         });
       });
-      console.log(this.synths);
+      // starts the playing of the notes, not the sound itself
       Tone.Transport.start();
     }
 
     async convertAndPlay() {
       if (!this.playing) {
         this.playing = true;
-        // const midi = await convertMidiToTonejs();
         this.convertMidiToTonejs().then((midi) => this.playTheSong(midi));
-
-        // playTheSong(midi);
       }
     }
 }
