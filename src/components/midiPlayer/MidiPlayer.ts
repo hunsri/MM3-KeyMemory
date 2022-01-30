@@ -1,4 +1,5 @@
 import { Midi } from '@tonejs/midi';
+import { playSoundOnPlayback } from './MidiPlayerSound';
 import { setNoteDuration } from './NoteStates';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -99,21 +100,25 @@ class MidiPlayer {
       midi.tracks.forEach((track: { notes: any[]; }) => {
         // create a synth for each track
         // only using 1 synth instrument here, default is 4
-        const synth = new Tone.PolySynth(1, Tone.Synth, {
-          envelope: {
-            attack: 0.02,
-            decay: 0.1,
-            sustain: 0.3,
-            release: 1,
-          },
-        }).toMaster();
-        this.synths.push(synth);
+        // const synth = new Tone.PolySynth(1, Tone.Synth, {
+        //   envelope: {
+        //     attack: 0.02,
+        //     decay: 0.1,
+        //     sustain: 0.3,
+        //     release: 1,
+        //   },
+        // }).toMaster();
+
+        // Tone.Master.volume.value = 1;
+        // this.synths.push(synth);
         // schedule all of the events
         track.notes.forEach((note) => {
           // registers the events for the sound
-          synth.triggerAttackRelease(note.name, note.duration, note.time + now, note.velocity);
+          // synth.triggerAttackRelease(note.name, note.duration, note.time + now, note.velocity);
+          playSoundOnPlayback(note, now);
           // eslint-disable-next-line no-unused-vars
           const timedCallbackNoteDown = (time: any) => {
+            // console.log(Tone.Master.volume.value);
             this.setRespectiveGlobalNoteState(note.name, note.duration);
           };
           // eslint-disable-next-line no-unused-vars
@@ -121,7 +126,6 @@ class MidiPlayer {
             this.setRespectiveGlobalNoteState(note.name, 0);
           };
 
-          // new Tone.Event(myCallbacker(note.name, timedCallback));
           Tone.Transport.scheduleOnce((time: any) => {
             timedCallbackNoteDown(time);
           }, note.time);

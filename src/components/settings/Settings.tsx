@@ -6,6 +6,8 @@ import SongCollection from './SongCollection';
 import MidiPlayer from '../midiPlayer/MidiPlayer';
 
 import '../css/Settings.css';
+import { getPianoSynth } from '../piano/PianoSound';
+import { getPlaybackSynth } from '../midiPlayer/MidiPlayerSound';
 
 /**
  * In here: The game will be started, volume can be changed and seconds will be calculated.
@@ -143,8 +145,8 @@ const Settings = function settings(holder: {
   return (
     <div id="settings" className="settings">
       <p className="settingsName">Settings</p>
-      <Manipulator title="Own volume" id="ownVolume" />
-      <Manipulator title="Playback volume" id="playbackVolume" />
+      <Manipulator title="Own volume" id="ownVolume" audioOutput={getPianoSynth()} />
+      <Manipulator title="Playback volume" id="playbackVolume" audioOutput={getPlaybackSynth()} />
 
       <p className="settingsName">Start a game</p>
       <SongCollection
