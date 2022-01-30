@@ -3,7 +3,7 @@
     margin: auto;
     z-index: -1;
     top: 10vmin;
-    left: 145vmin;
+    left: 75%;
     right: 0;
     bottom: 0;
     border: 0.5vmin solid black;
@@ -18,7 +18,6 @@
 .settingsName {
     color: white;
     text-align: center;
-    font-size: 275%;
     font-weight: bold;
     margin: auto;
     height: 8%;
@@ -27,7 +26,6 @@
 .volumeComponent {
     color: white;
     text-align: center;
-    font-size: 210%;
     margin: auto;
     height: 12%;
     width: 90%;
@@ -58,7 +56,6 @@
 .songCollectionComponent {
     color: white;
     text-align: center;
-    font-size: 210%;
     margin: auto;
     height: 12%;
     width: 90%;
@@ -67,7 +64,6 @@
 .difficultyComponent {
     color: white;
     text-align: center;
-    font-size: 210%;
     margin: auto;
     height: 12%;
     width: 90%;
@@ -92,7 +88,6 @@
     box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
     color: white;
     text-align: center;
-    font-size: 210%;
     width: 90%;
     max-width: 100%;
     max-height: 100%;
@@ -109,7 +104,6 @@
     box-shadow: 0 15px 25px rgba(0, 0, 0, .5);
     color: white;
     text-align: center;
-    font-size: 180%;
     width: 90%;
     max-width: 100%;
     max-height: 100%;
@@ -118,4 +112,130 @@
     justify-content: center;
     align-items: center;
     height: 10vmin;
+}
+
+@media screen and (min-width: 1525px) {
+    .settingsName {
+        font-size: 275%;
+    }
+    .volumeComponent {
+        font-size: 210%;
+    }
+    .songCollectionComponent {
+        font-size: 210%;
+    }
+    .difficultyComponent {
+        font-size: 210%;
+    }
+    #startGameButton {
+        font-size: 210%;
+    }
+    #restartListeningButton {
+        font-size: 180%;
+    }
+}
+
+@media screen and (min-height: 857.26px) {
+    .settingsName {
+        font-size: 275%;
+    }
+    .volumeComponent {
+        font-size: 210%;
+    }
+    .songCollectionComponent {
+        font-size: 210%;
+    }
+    .difficultyComponent {
+        font-size: 210%;
+    }
+    #startGameButton {
+        font-size: 210%;
+    }
+    #restartListeningButton {
+        font-size: 180%;
+    }
+}
+
+@media screen and (max-width: 1524px) {
+    .settingsName {
+        font-size: 225%;
+    }
+    .volumeComponent {
+        font-size: 170%;
+    }
+    .songCollectionComponent {
+        font-size: 170%;
+    }
+    .difficultyComponent {
+        font-size: 170%;
+    }
+    #startGameButton {
+        font-size: 170%;
+    }
+    #restartListeningButton {
+        font-size: 130%;
+    }
+}
+
+@media screen and (max-height: 857.25px) {
+    .settingsName {
+        font-size: 225%;
+    }
+    .volumeComponent {
+        font-size: 170%;
+    }
+    .songCollectionComponent {
+        font-size: 170%;
+    }
+    .difficultyComponent {
+        font-size: 170%;
+    }
+    #startGameButton {
+        font-size: 170%;
+    }
+    #restartListeningButton {
+        font-size: 130%;
+    }
+}
+
+@media screen and (max-width: 1224px) {
+    .settingsName {
+        font-size: 120%;
+    }
+    .volumeComponent {
+        font-size: 110%;
+    }
+    .songCollectionComponent {
+        font-size: 110%;
+    }
+    .difficultyComponent {
+        font-size: 110%;
+    }
+    #startGameButton {
+        font-size: 110%;
+    }
+    #restartListeningButton {
+        font-size: 80%;
+    }
+}
+
+@media screen and (max-height: 688.5px) {
+    .settingsName {
+        font-size: 120%;
+    }
+    .volumeComponent {
+        font-size: 110%;
+    }
+    .songCollectionComponent {
+        font-size: 110%;
+    }
+    .difficultyComponent {
+        font-size: 110%;
+    }
+    #startGameButton {
+        font-size: 110%;
+    }
+    #restartListeningButton {
+        font-size: 80%;
+    }
 }

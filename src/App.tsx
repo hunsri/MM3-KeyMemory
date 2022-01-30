@@ -4,6 +4,8 @@ import { Pianoroll } from './components/pianoRoll/Pianoroll';
 import { Middleman } from './components/Middleman';
 // import MidiPlayer from './components/midiPlayer/MidiPlayer';
 
+import './App.css';
+
 /**
  * Main functional component.
  * @returns

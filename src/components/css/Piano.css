@@ -18,7 +18,7 @@ body {
     border-right: 0.1vmin solid black;
     box-sizing: border-box;
     height: 100%;
-    width: 7vmin;
+    width: 6.927vmin;
     float: left;
     margin: auto;
 }
@@ -33,7 +33,6 @@ body {
 
 .whiteNote>.whiteNoteWithSharpHint {
     color: black;
-    font-size: 125%;
     text-align: center;
     margin: auto auto;
     position: relative;
@@ -42,7 +41,6 @@ body {
 
 .whiteNote>.whiteNoteWithoutSharpHint {
     color: black;
-    font-size: 125%;
     text-align: center;
     margin: auto auto;
     position: relative;
@@ -51,7 +49,6 @@ body {
 
 .blackNoteHint {
     color: white;
-    font-size: 125%;
     text-align: center;
     margin: auto auto;
     position: relative;
@@ -59,7 +56,101 @@ body {
 }
 
 #hintText {
+    position: absolute;
+    top: 102%;
+    bottom: 0;
+    right: 0;
+    left: 0;
     color: white;
-    font-size: 100%;
     text-align: center;
+}
+
+@media screen and (min-width: 1525px) {
+    #hintText {
+        font-size: 100%;
+    }
+    .whiteNoteWithSharpHint {
+        font-size: 125%;
+    }
+    .whiteNoteWithoutSharpHint {
+        font-size: 125%;
+    }
+    .blackNote {
+        font-size: 125%;
+    }
+}
+
+@media screen and (min-height: 857.26px) {
+    #hintText {
+        font-size: 100%;
+    }
+    .whiteNoteWithSharpHint {
+        font-size: 125%;
+    }
+    .whiteNoteWithoutSharpHint {
+        font-size: 125%;
+    }
+    .blackNote {
+        font-size: 125%;
+    }
+}
+
+@media screen and (max-width: 1524px) {
+    #hintText {
+        font-size: 85%;
+    }
+    .whiteNoteWithSharpHint {
+        font-size: 85%;
+    }
+    .whiteNoteWithoutSharpHint {
+        font-size: 85%;
+    }
+    .blackNote {
+        font-size: 85%;
+    }
+}
+
+@media screen and (max-height: 857.25px) {
+    #hintText {
+        font-size: 85%;
+    }
+    .whiteNoteWithSharpHint {
+        font-size: 85%;
+    }
+    .whiteNoteWithoutSharpHint {
+        font-size: 85%;
+    }
+    .blackNote {
+        font-size: 85%;
+    }
+}
+
+@media screen and (max-width: 1224px) {
+    #hintText {
+        font-size: 75%;
+    }
+    .whiteNoteWithSharpHint {
+        font-size: 75%;
+    }
+    .whiteNoteWithoutSharpHint {
+        font-size: 75%;
+    }
+    .blackNote {
+        font-size: 75%;
+    }
+}
+
+@media screen and (max-height: 688.5px) {
+    #hintText {
+        font-size: 75%;
+    }
+    .whiteNoteWithSharpHint {
+        font-size: 75%;
+    }
+    .whiteNoteWithoutSharpHint {
+        font-size: 75%;
+    }
+    .blackNote {
+        font-size: 75%;
+    }
 }
