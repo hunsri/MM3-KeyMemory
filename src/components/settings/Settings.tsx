@@ -3,6 +3,8 @@ import Difficulty from './Difficulty';
 import Manipulator from './Manipulator';
 import SongCollection from './SongCollection';
 
+import MidiPlayer from '../midiPlayer/MidiPlayer';
+
 import '../css/Settings.css';
 
 /**
@@ -86,6 +88,9 @@ const Settings = function settings(holder: {
   }
 
   function startGame() {
+    const mp = new MidiPlayer();
+    mp.convertAndPlay();
+
     if (holder.isGameStarted === false) {
       console.log('Game started');
       holder.onGameStartChange(true);

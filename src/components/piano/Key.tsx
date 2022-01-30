@@ -131,11 +131,11 @@ const Key = function key(holder: {
 
   /* Checks if a midi device is connected. */
   if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
-    console.log('MIDI Device linked');
+    // console.log('MIDI Device linked');
     activateMIDIKeyboardListener();
     activateComputerKeyboardListener();
   } else {
-    console.log('No MIDI Device detected');
+    // console.log('No MIDI Device detected');
     activateComputerKeyboardListener();
   }
 

@@ -13,7 +13,7 @@ const MidiDevice = function midiDevice(holder: { isDeviceAccessible: any }) {
 
   /* Changes the color of the div midiAccessibility. */
   if (holder.isDeviceAccessible !== null && holder.isDeviceAccessible !== undefined) {
-    console.log('Is accessible');
+    // console.log('Is accessible');
     isAccessible = true;
   } else {
     isAccessible = false;

@@ -35,8 +35,8 @@ function getRandomInt(max: number): number {
  * @param height height where it spawns.
  * @returns a new note.
  */
-function spawnMidi(height: number): any {
-  const a = new Note('whiteKey', height, 50, 'blue');
+function spawnStripe(height: number, duration: number): any {
+  const a = new Note('', height, duration, 'blue');
   return a;
 }
 
@@ -44,5 +44,5 @@ export {
   drawKey,
   clearCanvas,
   getRandomInt,
-  spawnMidi,
+  spawnStripe,
 };

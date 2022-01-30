@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Piano } from './components/piano/Piano';
 import { Pianoroll } from './components/pianoRoll/Pianoroll';
 import { Middleman } from './components/Middleman';
+// import MidiPlayer from './components/midiPlayer/MidiPlayer';
 
 /**
  * Main functional component.
@@ -28,6 +29,12 @@ const App = function app() {
   const handleMidiDeviceChange = useCallback((changeMidiDevice: any) => {
     setMidiDevice(changeMidiDevice);
   }, [setMidiDevice]);
+
+  // gets executed when the app starts
+  // useEffect(() => {
+  //   const mp = new MidiPlayer();
+  //   mp.convertAndPlay();
+  // }, []);
 
   return (
     <div className="App">

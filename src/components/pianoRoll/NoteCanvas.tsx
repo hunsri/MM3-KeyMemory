@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef } from 'react';
 import {
   clearCanvas,
   drawKey,
-  spawnMidi,
+  spawnStripe,
   getRandomInt,
 } from './NoteFunctions';
 import Note from './Note';
@@ -10,47 +11,104 @@ import Note from './Note';
 import '../css/PianoRoll.css';
 
 const col = { wrong: 'red', missed: 'blue', right: 'green' };
+const displayRandomRequiredNotes = false;
 
-const NoteCanva = function noteCanva(holder: {
-  id: any, className: any, specificNote: string,
-  keyboard: string, position: string,
-  phase: number, inputDevice: any
-}) {
-  const noteRef: any = useRef();
-  const songRef: any = useRef();
+/* song playing on the canvas */
+const song: any = [];
 
-  /* context of the canvas */
-  let ctxNote: any; // where the user's notes are displayed
-  let ctxSong: any; // where the animation happens
+/* height and width of canvas */
+let height: number;
+let width: number;
 
-  /* height and width of canvas */
-  let height: number;
-  let width: number;
+let noteNameInferedFromHolder: string;
 
-  /* width of the pressed key */
-  let keywidth: number;
+let id: string | undefined;
+let className: string | undefined;
+let keyboard: string;
+let specificNote: any;
+let position: any;
+let phase: number;
+let inputDevice: { addListener: (arg0: string, arg1: (e: { note: { identifier: any; }; }) => void) => void; };
 
-  /* song playing on the canvas */
-  const song: any = [];
+const noteRef: any = useRef();
+const songRef: any = useRef();
 
-  /* for spawning notes -> spawnMidi */
-  let lastSpawn = -1;
-  const spawnRate = 5000; // spawn every 5ms
+/* context of the canvas */
+let ctxNote: any; // where the user's notes are displayed
+let ctxSong: any; // where the animation happens
 
-  /** if key is pressed true */
-  let keypress = false;
+/* width of the pressed key */
+let keywidth: number;
 
-  /** color of the note/bar */
-  let color: string;
+/* for spawning notes -> spawnMidi */
+let lastSpawn = -1;
+const spawnRate = 5000; // spawn every 5ms
 
-  /** speed of the bars moving up */
-  const speed = 0.3;
+/** if key is pressed true */
+let keypress = false;
+
+/** color of the note/bar */
+let color: string;
+
+/** speed of the bars moving up */
+const speed = 0.3;
+
+// const NoteCanvas = function noteCanvas(holder: {
+export default class NoteCanvas extends React.Component {
+//   id: any, className: any, specificNote: string,
+//   keyboard: string, position: string,
+//   phase: number, inputDevice: any,
+// }) {
+
+  /* y - position */
+  y = 0;
+
+  /* duration of the note */
+  duration = 0;
+
+  constructor(props:any) {
+    super(props);
+    id = props.id;
+    className = props.className;
+    keyboard = props.keyboard;
+    specificNote = props.specificNote;
+    position = props.position;
+    phase = props.phase;
+    inputDevice = props.inputDevice;
+
+    const canvaNote: any = noteRef.current;
+    const canvaSong: any = songRef.current;
+    if (canvaNote && canvaSong) {
+      ctxNote = canvaNote.getContext('2d');
+      ctxSong = canvaSong.getContext('2d');
+
+      height = canvaSong.height;
+      width = canvaSong.width;
+      keywidth = width;
+
+      if (ctxNote || ctxSong) {
+        this.reader();
+      }
+
+      // Checks if MIDI device is connected
+      if (inputDevice !== null && inputDevice !== undefined) {
+        this.midiEvent();
+        this.keyEvents();
+      } else {
+        this.keyEvents();
+      }
+    }
+
+    //   noteNameInferedFromHolder = holder.specificNote;
+    //   console.log(noteNameInferedFromHolder);
+  }
 
   /**
    * Setter of keypress
    * @param bool true if key is pressed
    */
-  function setKeyPressed(bool: boolean) {
+  // eslint-disable-next-line class-methods-use-this
+  setKeyPressed(bool: boolean) {
     keypress = bool;
   }
 
@@ -62,7 +120,8 @@ const NoteCanva = function noteCanva(holder: {
    * @returns true, if the canva is empty; false if not
    * https://stackoverflow.com/questions/29090384/check-if-all-pixels-in-a-region-are-all-empty-in-javascript
    */
-  function checkPixel(x: number, y: number) {
+  // eslint-disable-next-line react/sort-comp, class-methods-use-this
+  checkPixel(x: number, y: number) {
     const img = ctxSong.getImageData(x, y, keywidth, 2);
     const u32 = new Uint32Array(img.data.buffer);
     let i = 0;
@@ -79,7 +138,8 @@ const NoteCanva = function noteCanva(holder: {
    * @param empty - if the canvas was empty
    * @returns color of the note
    */
-  function drawColor(empty: boolean) {
+  // eslint-disable-next-line class-methods-use-this
+  drawColor(empty: boolean) {
     let notecolor;
     if (empty === false) {
       notecolor = col.right; // when right key
@@ -89,22 +149,31 @@ const NoteCanva = function noteCanva(holder: {
     return notecolor;
   }
 
+  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  createNoteIntern = function (duration: number) {
+    song.push(spawnStripe(height, duration));
+  };
+
   /**
    * Animation of the song
    */
-  function reader() {
-    const time = Date.now() + getRandomInt(10000);
+  reader() {
     // const time = Date.now(); // for testing
 
-    // spawning of the random notes
-    if (holder.phase === 0) {
-      if (time > lastSpawn + spawnRate) {
-        lastSpawn = time + getRandomInt(10000);
-        // lastSpawn = time + spawnRate; // for testing
-        song.push(spawnMidi(height));
+    if (displayRandomRequiredNotes) {
+      const time = Date.now() + getRandomInt(10000);
+      // spawning of the random notes
+      if (phase === 0) {
+        if (time > lastSpawn + spawnRate) {
+          lastSpawn = time + getRandomInt(10000);
+          // lastSpawn = time + spawnRate; // for testing
+          song.push(spawnStripe(height, 100));
+        }
       }
     }
-    requestAnimationFrame(reader);
+
+    requestAnimationFrame(this.reader);
 
     clearCanvas(ctxSong, width, height);
 
@@ -116,43 +185,37 @@ const NoteCanva = function noteCanva(holder: {
     }
   }
 
-  /* y - position */
-  let y = 0;
-
-  /* duration of the note */
-  let duration = 0;
-
   /**
    * Increases y and duration by 0.5
    */
-  function increase() {
-    y += speed;
-    duration += speed;
+  increase() {
+    this.y += speed;
+    this.duration += speed;
   }
 
   /**
    * Animates the drawing of a note while a key is pressed.
    */
-  function keyPressed() {
+  keyPressed() {
     let reqId = 0;
     if (keypress === true) {
       const oldcolor = color;
-      color = drawColor(checkPixel(0, height - 1));
+      color = this.drawColor(this.checkPixel(0, height - 1));
 
       if (color !== oldcolor && oldcolor !== undefined) {
-        y += 1; // must be 1 !
+        this.y += 1; // must be 1 !
         clearCanvas(ctxNote, width, height);
-        const bar = new Note('key', height - y, duration, oldcolor);
+        const bar = new Note('key', height - this.y, this.duration, oldcolor);
         song.push(bar);
-        y = 0;
-        duration = 0;
+        this.y = 0;
+        this.duration = 0;
       }
-      increase();
+      this.increase();
 
       ctxNote.fillStyle = color;
-      drawKey(ctxNote, height - y, keywidth, duration);
+      drawKey(ctxNote, height - this.y, keywidth, this.duration);
 
-      reqId = requestAnimationFrame(keyPressed);
+      reqId = requestAnimationFrame(this.keyPressed);
     } else {
       cancelAnimationFrame(reqId);
     }
@@ -162,11 +225,11 @@ const NoteCanva = function noteCanva(holder: {
    * When a key is pressed a drawing animation of a note is started
    * @param event - the keyevent
    */
-  function keyDown(event: KeyboardEvent) { // handleInput
+  keyDown(event: KeyboardEvent) { // handleInput
     if (!event.repeat) {
-      if (event.key === holder.keyboard) {
-        setKeyPressed(true);
-        keyPressed();
+      if (event.key === keyboard) {
+        this.setKeyPressed(true);
+        this.keyPressed();
       }
     }
   }
@@ -175,89 +238,73 @@ const NoteCanva = function noteCanva(holder: {
    * When the key is released, a new note is added to the song and animated
    * @param event pressed key
    */
-  function keyUp(event: KeyboardEvent) { // handleinputEnd
-    if (event.key === holder.keyboard) {
-      setKeyPressed(false);
+  keyUp(event: KeyboardEvent) { // handleinputEnd
+    if (event.key === keyboard) {
+      this.setKeyPressed(false);
       clearCanvas(ctxNote, width, height);
-      const bar = new Note(event.key, height - y, duration, color);
+      const bar = new Note(event.key, height - this.y, this.duration, color);
       song.push(bar);
-      y = 0;
-      duration = 0;
+      this.y = 0;
+      this.duration = 0;
     }
   }
 
   /**
    * Adds listeners to draw notes
    */
-  function keyEvents() {
-    window.addEventListener('keydown', keyDown);
-    window.addEventListener('keyup', keyUp);
+  keyEvents() {
+    window.addEventListener('keydown', this.keyDown);
+    window.addEventListener('keyup', this.keyUp);
   }
 
   /**
    * Adds MIDI listeners to draw notes
    */
-  function midiEvent() {
-    holder.inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
-      if (e.note.identifier === holder.specificNote) {
-        setKeyPressed(true);
-        keyPressed();
+  midiEvent() {
+    inputDevice.addListener('noteon', (e: { note: { identifier: any; }; }) => {
+      if (e.note.identifier === specificNote) {
+        this.setKeyPressed(true);
+        this.keyPressed();
       }
     });
 
-    holder.inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
-      if (e.note.identifier === holder.specificNote) {
-        setKeyPressed(false);
+    inputDevice.addListener('noteoff', (e: { note: { identifier: any; }; }) => {
+      if (e.note.identifier === specificNote) {
+        this.setKeyPressed(false);
         clearCanvas(ctxNote, width, height);
-        const bar = new Note(e.note.identifier, height - y, duration, color);
+        const bar = new Note(e.note.identifier, height - this.y, this.duration, color);
         song.push(bar);
-        y = 0;
-        duration = 0;
+        this.y = 0;
+        this.duration = 0;
       }
     });
   }
 
-  useEffect(() => {
-    const canvaNote: any = noteRef.current;
-    const canvaSong: any = songRef.current;
-    if (canvaNote && canvaSong) {
-      ctxNote = canvaNote.getContext('2d');
-      ctxSong = canvaSong.getContext('2d');
+  render() {
+    return (
+      <div id={id} className={className}>
+        <canvas
+          id="note"
+          ref={noteRef}
+          className="note"
+          style={{ right: position }}
+        />
+        <canvas
+          id="song"
+          ref={songRef}
+          className="song"
+          style={{ right: position }}
+        />
+      </div>
+    );
+  }
+}
 
-      height = canvaSong.height;
-      width = canvaSong.width;
-      keywidth = width;
-
-      if (ctxNote || ctxSong) {
-        reader();
-
-        // Checks if MIDI device is connected
-        if (holder.inputDevice !== null && holder.inputDevice !== undefined) {
-          midiEvent();
-          keyEvents();
-        } else {
-          keyEvents();
-        }
-      }
-    }
-  });
-
-  return (
-    <div id={holder.id} className={holder.className}>
-      <canvas
-        id="note"
-        ref={noteRef}
-        className="note"
-        style={{ right: holder.position }}
-      />
-      <canvas
-        id="song"
-        ref={songRef}
-        className="song"
-        style={{ right: holder.position }}
-      />
-    </div>
-  );
+export const createNote = function (noteName: any, duration: any) {
+  console.log(noteName, duration);
+  if (noteName === noteNameInferedFromHolder) {
+    song.push(spawnStripe(height, 1000));
+  }
 };
 
-export default NoteCanva;
+// export default NoteCanvas;

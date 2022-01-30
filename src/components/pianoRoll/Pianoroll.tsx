@@ -11,10 +11,31 @@ import '../css/PianoRoll.css';
  * @returns
  */
 const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }) {
+  const NoteCanvasC3 = function () {
+    return (
+      <div>
+        <Canvas
+          className="whiteLine"
+          position="93%"
+        />
+        <NoteCanvas
+          id="w1"
+          className="white"
+          keyboard="q"
+          specificNote="C3"
+          position="93%"
+          phase={holder.phase}
+          inputDevice={holder.inputDevice}
+        />
+      </div>
+    );
+  };
+
   return (
     <div id="core" className="core">
       <div id="gameBox" className="gameBox">
-        <div>
+        {NoteCanvasC3()}
+        {/* <div>
           <Canvas
             className="whiteLine"
             position="93%"
@@ -28,7 +49,7 @@ const Pianoroll = function pianoroll(holder: { phase: number, inputDevice: any }
             phase={holder.phase}
             inputDevice={holder.inputDevice}
           />
-        </div>
+        </div> */}
         <div>
           <Canvas
             className="whiteLine"
