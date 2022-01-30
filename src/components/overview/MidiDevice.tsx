@@ -21,7 +21,7 @@ const MidiDevice = function midiDevice(holder: { isDeviceAccessible: any }) {
 
   return (
     <div id="midiDeviceComponent">
-      MIDI Accessibility
+      MIDI Device Detected
       <div id="midiAccessibility" style={{ backgroundColor: isAccessible ? 'green' : 'red' }} />
     </div>
   );

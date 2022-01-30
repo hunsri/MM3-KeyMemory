@@ -45,9 +45,6 @@ const State = function state(holder: { gameStarted: boolean, phase: number }) {
           <img src={pauseLogo} className="logo" alt="playLogo" />
         </div>
       </div>
-      <div className="smallText">
-        Press Enter to start the game
-      </div>
     </div>
   );
 };

@@ -127,21 +127,6 @@ const Settings = function settings(holder: {
     holder.onPhaseChange(0);
   }
 
-  /**
-   * By pressing Enter the game will start.
-   * @param event
-   */
-  const handleGameStarted = (event: any) => {
-    if (event.key === 'Enter') {
-      startGame();
-    }
-  };
-
-  /* Enables the functionality to press enter to start the next phase. */
-  if (holder.isGameStarted === false) {
-    window.addEventListener('keydown', handleGameStarted);
-  }
-
   return (
     <div id="settings" className="settings">
       <p className="settingsName">Settings</p>
