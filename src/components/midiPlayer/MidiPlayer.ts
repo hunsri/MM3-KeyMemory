@@ -10,9 +10,9 @@ const lowestOctave = 4;
 class MidiPlayer {
     readonly chosenSongIndex = 0;
 
-    readonly songNames = ['examples_bach_846.mid', 'BurnedTower.mid'];
+    readonly songNames = ['examples_bach_846.mid'];
 
-    readonly path = 'http://127.0.0.1:8080/public/';
+    readonly path = 'http://127.0.0.1:8080/backend/public/';
 
     lastChosenSongPath = '';
 
